@@ -1,0 +1,147 @@
+#
+# Copyright IBM Corp. 2014
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+require 'fileutils'
+require 'io/console'
+
+# This Rake file does everything your need to deploy this sample app to
+# BlueMix.  This Rake file assumes you have the CloudFoundry command line 
+# installed and Bundler installed.  There are a number of tasks in this file which make up the 
+# entire deployment process.  There are two main tasks that you may
+# want to run depending on which backend database you want to use:
+#
+# Run $ rake deployMongoToDo to deploy this app using a Monog DB backend
+# Run $ rake deployCloudantToDo[CloudantUsername,CloudantPassword,CloudantURL] 
+# to deploy this app using a Cloudant backend  
+#
+# Here are the steps we take when deploying the application.
+#
+# 1.) Delete the public directory, Gemfile.lock, config.ru, and manifest.yml
+# 2.) Copy everything in ../frontend to a folder called public
+# 3.) Copy either cloudant-config.ru and cloudant-manifest.yml
+#     or mongo-config.ru and mongo-manifest.yml from the deploy directory
+#     to the root directory and rename them to config.ru and manifest.yml
+# 4.) Run 'bundle install' to create Gemfile.lock
+# 5.) Create either the Mongo DB service or Cloudant service in BlueMix
+# 6.) Run 'cf push' to deploy the app to BlueMix and bind the services
+
+# By default we will deploy with Mongo.
+task :default => [:deployMongoToDo]
+
+# Mongo DB deploy
+task :deployMongoToDo => [:clean, :copyDirectory, :mongoConfig, 
+  :bundle, :createMongoService, :deployToBlueMix]
+
+# Cloudant deploy
+task :deployCloudantToDo => [:clean, 
+  :copyDirectory, :cloudantConfig, :bundle, :createCloudantService, 
+  :deployToBlueMix]
+
+# Copies the frontent files to the public directory
+task :copyDirectory do
+  puts '*****************************************'
+  puts '* Copying frontend files                *'
+  puts '*****************************************'        
+  FileUtils.mkdir_p("./public")
+  files = FileList.new().include("../frontend/**/*.*");   
+  files.each do |file|          
+    targetLocation = file.sub("../frontend", "./public")       
+    FileUtils.mkdir_p(File.dirname(targetLocation));  
+    FileUtils.cp_r(file, targetLocation)  
+  end   
+end
+
+# Cleans up files before doing a deploy
+task :clean do
+  puts '*****************************************'
+  puts '* Cleaning up files                     *'
+  puts '*****************************************'
+  FileUtils.rm_f("Gemfile.lock")
+  FileUtils.rm_f("config.ru")
+  FileUtils.rm_f("manifest.yml")
+  FileUtils.rm_rf("./public")
+end
+
+# Copies Cloudant deployment files 
+task :cloudantConfig do
+  puts '*****************************************'
+  puts '* Copying Cloduant specific files       *'
+  puts '*****************************************'
+  FileUtils.cp_r("deploy/cloudant-config.ru", "config.ru")
+  FileUtils.cp_r("deploy/cloudant-manifest.yml", "manifest.yml")
+end
+
+# Copies the Monogo DB deployment files
+task :mongoConfig do
+  puts '*****************************************'
+  puts '* Copying Mongo specific files          *'
+  puts '*****************************************'
+  FileUtils.cp_r("deploy/mongo-config.ru", "config.ru")
+  FileUtils.cp_r("deploy/mongo-manifest.yml", "manifest.yml")
+end
+
+# Runs bundle install
+task :bundle do
+  puts '*****************************************'
+  puts '* Running "bundle install"              *'
+  puts '*****************************************'
+  system('bundle install')
+end
+
+# Logs you into BlueMix
+task :cfLogin do
+  puts '*****************************************'
+  puts '* Login To BlueMix                      *'
+  puts '*****************************************'
+  STDOUT.puts "BlueMix Username: "
+  user = STDIN.gets.chomp
+  STDOUT.puts "BlueMix Password: "
+  pwd = STDIN.noecho(&:gets).chomp
+  system('cf login -a https://api.ng.bluemix.net -u ' + user + ' -p ' + pwd)
+end
+
+# Creates the Cloudant user-service
+task :createCloudantService do
+  puts '*****************************************'
+  puts '* Creating Cloudant user-service        *'
+  puts '*****************************************'
+  puts 'WARNING: If this fails with the message "The service ' +
+   'instance name is taken: todo-couch-db" that is expected if the service already exists'
+  STDOUT.puts "Cloudant Username: "
+  user = STDIN.gets.chomp
+  STDOUT.puts "Cloudant Password: "
+  pwd = STDIN.noecho(&:gets).chomp
+  STDOUT.puts "Cloudant URL: (For example: https://user.cloudant.com)"
+  url = STDIN.gets.chomp
+  system('cf cups todo-couch-db -p \'{"username":"' + user + '","password":"' + pwd + '","url":"' + url + '"}\'')
+end
+
+# Creates the Monogo DB service
+task :createMongoService do
+  puts '*****************************************'
+  puts '* Creating Mongo DB service             *'
+  puts '*****************************************'
+  system('cf create-service mongodb 100 todo-mongo-db')
+end
+
+# Pushes the app to BlueMix
+task :deployToBlueMix do
+  puts '*****************************************'
+  puts '* Pushing app to BlueMix                *'
+  puts '*****************************************'
+  STDOUT.puts "What would you like to call this app? "
+  name = STDIN.gets.chomp
+  system('cf push ' + name)
+end

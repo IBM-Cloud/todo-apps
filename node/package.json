@@ -1,0 +1,21 @@
+{
+    "name":                 "bluemix-todo-apps-node",
+    "main":                 "./lib/server",
+    "description":          "node server for TodoMVC using CouchDB for storage",
+    "version":              "0.1.0",
+    "dependencies": {
+        "cf-env":           "0.1.x",
+        "express":          "3.4.x",
+        "nano":             "4.7.x",
+        "nopt":             "2.2.x",
+        "ports":            "1.1.x",
+        "q":                "1.0.x",
+        "underscore":       "1.6.x",
+        "monk":             "0.8.x"
+    },
+    "devDependencies": {
+        "coffee-script":    "1.7.x",
+        "mocha":            "1.17.x",
+        "expect.js":        "0.3.x"
+    }
+}
