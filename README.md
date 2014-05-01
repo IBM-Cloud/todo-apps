@@ -52,7 +52,7 @@ getting the code
 
 To get the code you can just clone the repo.
 
-    git clone https://github.rtp.raleigh.ibm.com/et-dev-advocates/bluemix-todo-apps.git
+    git clone git@github.com:CodenameBlueMix/todo-apps.git
 
 The repository contains a directory for each implementation, and the
 `frontend` directory contains the web resources that are used by each
