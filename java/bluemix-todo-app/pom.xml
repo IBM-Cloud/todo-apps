@@ -105,9 +105,14 @@
         <scope>test</scope>
       </dependency>
       <dependency>
-        <groupId>org.cloudfoundry</groupId>
-        <artifactId>cloudfoundry-runtime</artifactId>
-        <version>${cloudfoundry-runtime.version}</version>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>core</artifactId>
+        <version>${spring-cloud.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>cloudfoundry-connector</artifactId>
+        <version>${spring-cloud.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -148,8 +153,12 @@
       <artifactId>powermock-api-easymock</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.cloudfoundry</groupId>
-      <artifactId>cloudfoundry-runtime</artifactId>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>cloudfoundry-connector</artifactId>
     </dependency>
   </dependencies>
 
@@ -252,7 +261,7 @@
             <configuration>
               <server>BlueMix</server>
               <target>https://api.ng.bluemix.net</target>
-              <appname>bluemix-todo-java-couch</appname>
+              <appname>bluemix-todo-java-cloudant</appname>
               <url>${app-url}</url>
               <org>${org}</org>
               <space>${space}</space>
@@ -309,8 +318,8 @@
     <cf-maven-plugin.version>1.0.2</cf-maven-plugin.version>
     <junit.version>4.8.1</junit.version>
     <mongo-java-driver.version>2.11.0</mongo-java-driver.version>
-    <cloudfoundry-runtime.version>0.8.6</cloudfoundry-runtime.version>
     <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+    <spring-cloud.version>0.9.8</spring-cloud.version>
     <space>dev</space>
   </properties>
 </project>

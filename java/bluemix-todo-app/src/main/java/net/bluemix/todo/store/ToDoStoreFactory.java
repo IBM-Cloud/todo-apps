@@ -15,7 +15,7 @@
  */
 package net.bluemix.todo.store;
 
-import java.util.Map;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -24,8 +24,14 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 
-import org.cloudfoundry.runtime.env.CloudEnvironment;
+import net.bluemix.todo.connector.CloudantServiceInfo;
+
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.springframework.cloud.Cloud;
+import org.springframework.cloud.CloudException;
+import org.springframework.cloud.CloudFactory;
+import org.springframework.cloud.service.ServiceInfo;
+import org.springframework.cloud.service.common.MongoServiceInfo;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -37,6 +43,7 @@ import com.mongodb.MongoClient;
 public class ToDoStoreFactory {
   private static final int PERIOD = 30; //in seconds
   private static ToDoStore instance;
+  private static CloudFactory cloudFactory;
   private static ScheduledExecutorService exec = Executors.newSingleThreadScheduledExecutor();
 
   /**
@@ -45,14 +52,30 @@ public class ToDoStoreFactory {
    */
   public static ToDoStore getInstance() throws ToDoStoreException {
     if(instance == null) {
-      CloudEnvironment env = new CloudEnvironment();
-      Map<String, Object> mongo = env.getServiceDataByName("todo-mongo-db");
-      Map<String, Object> cloudant = env.getServiceDataByName("todo-couch-db");
-      if(mongo != null && mongo.size() != 0) {
-        instance = new MongoStore(getCollection(mongo));
-      } else if(cloudant != null && cloudant.size() != 0){
-        instance = new CloudantStore(getWebTarget(cloudant));
-      } else {
+      cloudFactory = new CloudFactory();
+      try {
+        Cloud cloud = cloudFactory.getCloud();
+        List<ServiceInfo>infos = cloud.getServiceInfos();
+        MongoServiceInfo mongoInfo = null;
+        CloudantServiceInfo cloudantInfo = null;
+        for(ServiceInfo info : infos) {
+          if(info.getId().equals("todo-mongo-db")) {
+            mongoInfo = (MongoServiceInfo)info;
+            break;
+          }
+          if(info.getId().equals("todo-couch-db")) {
+            cloudantInfo = (CloudantServiceInfo)info;
+            break;
+          }
+        }
+        if(mongoInfo != null) {
+          instance = new MongoStore(getCollection(mongoInfo));
+        } else if(cloudantInfo != null) {
+          instance = new CloudantStore(getWebTarget(cloudantInfo));
+        } else {
+          instance = new InMemoryStore();
+        }
+      } catch(CloudException e) {
         instance = new InMemoryStore();
       }
       exec.scheduleAtFixedRate(new Cleanup(), PERIOD, PERIOD, TimeUnit.SECONDS);
@@ -60,27 +83,12 @@ public class ToDoStoreFactory {
     return instance;
   }
   
-  private static DBCollection getCollection(Map<String, Object> mongoMap) throws ToDoStoreException {
-    Map<String, Object> creds = (Map<String, Object>)mongoMap.get("credentials");
-    String dbHost = (String)creds.get("host");
-    String dbName = (String)creds.get("database");
-    if(dbName == null) {
-      dbName = (String)creds.get("db");
-    }
-    Object portObj = creds.get("port");
-    String port;
-    if(portObj instanceof Integer) {
-      port = portObj.toString();
-    } else {
-      port = (String)portObj;
-    }
-    String username = (String) creds.get("username");
-    String password = (String) creds.get("password");
+  private static DBCollection getCollection(MongoServiceInfo info) throws ToDoStoreException {
     MongoClient client;
     try {
-      client = new MongoClient(dbHost, Integer.valueOf(port));
-      DB db = client.getDB(dbName);
-      boolean auth = db.authenticate(username, password.toCharArray());
+      client = new MongoClient(info.getHost(), info.getPort());
+      DB db = client.getDB(info.getDatabase());
+      boolean auth = db.authenticate(info.getUserName(), info.getPassword().toCharArray());
       if(!auth) {
         throw new ToDoStoreException("Could not authenticate to Mongo DB.");
       }
@@ -90,13 +98,9 @@ public class ToDoStoreFactory {
     }
   }
   
-  private static WebTarget getWebTarget(Map<String, Object> cloudantMap) {
-    Map<String, Object> creds = (Map<String, Object>)cloudantMap.get("credentials");
-    String url = (String)creds.get("url");
-    String username = (String)creds.get("username");
-    String pw = (String)creds.get("password");
-    HttpAuthenticationFeature basicAuthFeature = HttpAuthenticationFeature.basic(username, pw);
+  private static WebTarget getWebTarget(CloudantServiceInfo info) {
+    HttpAuthenticationFeature basicAuthFeature = HttpAuthenticationFeature.basic(info.getUsername(), info.getPassword());
     Client client = ClientBuilder.newClient().register(basicAuthFeature);
-    return client.target(url);
+    return client.target(info.getUrl());
   }
 }
