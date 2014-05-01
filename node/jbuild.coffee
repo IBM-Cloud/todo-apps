@@ -120,7 +120,7 @@ exports.deploycloudant =
         tasks.build()
         tasks.copycloudantmanifest()
         exports.createcloudantservice.run(username, password, url)
-        exec "cf push " + appName
+        exec "cf push " + appName + " -n " + appName 
 
 #-------------------------------------------------------------------------------
 
@@ -130,7 +130,7 @@ exports.deploymongo =
         tasks.build()
         tasks.copymongomanifest()
         tasks.createmongoservice()
-        exec "cf push " + appName
+        exec "cf push " + appName + " -n " + appName
 
 #-------------------------------------------------------------------------------
 
