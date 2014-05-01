@@ -76,8 +76,6 @@ you would like using the space parameter.
 
 ### Additional Information
 
-We are using the cloudfoundry-runtime library to help with accessing service info from VCAP_SERVICES,
-however it is not recommended that you use this library as it is being deprecated.  Instead you
-should look into using the [spring-cloud library](https://github.com/spring-projects/spring-cloud) instead.  
-We are not using it yet because there is a [bug](https://github.com/spring-projects/spring-cloud/pull/20) 
-related to parsing Mongo DB service info that needs to make it into a release first.
+This project is leveraging the [spring-cloud library](https://github.com/spring-projects/spring-cloud)
+to help retrieve service information from the VCAP_SERVICES environment variable.  See the ToDoStoreFactory
+class for an example of how you can use this library to more easily use the information within VCAP_SERVICES.
