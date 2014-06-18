@@ -31,7 +31,7 @@ app = Flask(__name__, static_url_path='/static')
 url = 'http://127.0.0.1:5984/'
 username = 'admin'
 password = ''
-if os.environ['VCAP_SERVICES']:
+if os.environ.has_key('VCAP_SERVICES'):
     vcap_json = json.loads(os.environ['VCAP_SERVICES'])
     for key, value in vcap_json.iteritems():
         couch_services = filter(lambda s: s['name'] == 'todo-couch-db', value)

@@ -27,7 +27,7 @@ app = Flask(__name__, static_url_path='/static')
 # assumes the Mongo instance is running locally
 url = 'mongodb://localhost:27017/'
 dbName = 'db'
-if os.environ['VCAP_SERVICES']:
+if os.environ.has_key('VCAP_SERVICES'):
     vcapJson = json.loads(os.environ['VCAP_SERVICES'])
     for key, value in vcapJson.iteritems():
         #Only find the services with the name todo-mongo-db, there should only be one
