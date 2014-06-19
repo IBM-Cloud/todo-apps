@@ -5,7 +5,7 @@ either a Mongo DB or Couch DB using Cloudant.
 ## Prerequisites
 Before running this app or deploying it to BlueMix you need to have [
 Python](https://www.python.org/), [PIP](http://www.pip-installer.org/), [Paver](http://paver.github.io/paver/), 
-and the [CloudFoundry Command Line](http://www.ng.bluemix.net/docs/BuildingWeb.jsp#install-cf) 
+and the [CloudFoundry Command Line](https://github.com/cloudfoundry/cli) 
 installed.  If you are a Python developer you probably already have most of these installed.
 
 ## Deploying To BlueMix

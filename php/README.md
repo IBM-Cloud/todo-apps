@@ -5,7 +5,7 @@ a Mongo DB or a Couch DB using Cloudant.
 ## Prerequisites
 Before running this app or deploying it to BlueMix you need to have 
 [PHP](http://us1.php.net/downloads.php), and the 
-[CloudFoundry Command Line](http://www.ng.bluemix.net/docs/BuildingWeb.jsp#install-cf) installed.
+[CloudFoundry Command Line](https://github.com/cloudfoundry/cli) installed.
 
 ## Deploying To BlueMix
 

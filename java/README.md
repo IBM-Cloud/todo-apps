@@ -51,7 +51,7 @@ deployed using either a Mongo DB backend or a backend based on Couch DB such as
 To do this you just need to run a Maven command specifying the URL and the 
 organization you want to use.
 
-    mvn -P mongo-deploy -Dapp-url=bluemix-todo-java-mongo.ng.bluemix.net -Dorg=organization
+    mvn -P mongo-deploy -Dapp-url=bluemix-todo-java-mongo.mybluemix.net -Dorg=organization
 
 The app-url parameter must be unique, so choose a URL that is meaningful to you.  The org 
 parameter represents the organization in BlueMix you want to deploy the app too.  By default 
@@ -59,20 +59,20 @@ everyone has an organization name that is their user ID.  This command will depl
 to the space called dev by default, you can use the space parameter to deploy it to a different 
 space.  For example
 
-    mvn -P mongo-deploy -Dapp-url=bluemix-todo-java-mongo.ng.bluemix.net -Dorg=organization -Dspace=myspace
+    mvn -P mongo-deploy -Dapp-url=bluemix-todo-java-mongo.mybluemix.net -Dorg=organization -Dspace=myspace
 
 ### Deploying The App With Cloudant Backend
 
 To do this you just need to run a Maven command specifying the URL, organization, Cloudant 
 credentials, and Cloudant URL.
 
-    $ mvn -P cloudant-deploy -Dapp-url=bluemix-todo-java-cloudant.ng.bluemix.net -Dorg=organization -Dcloudant-url=https://user.cloudant.com -Dcloudant-username=user -Dcloudant-password=password
+    $ mvn -P cloudant-deploy -Dapp-url=bluemix-todo-java-cloudant.mybluemix.net -Dorg=organization -Dcloudant-url=https://user.cloudant.com -Dcloudant-username=user -Dcloudant-password=password
 
 Just like with the Mongo DB version you need to make sure the app-url is unique.  In addition 
 by default this command will use the space called dev.  You can specify a different space if 
 you would like using the space parameter.
 
-    $ mvn -P cloudant-deploy -Dapp-url=bluemix-todo-java-cloudant.ng.bluemix.net -Dorg=organization -Dcloudant-url=https://user.cloudant.com -Dcloudant-username=user -Dcloudant-password=password -Dspace=myspace
+    $ mvn -P cloudant-deploy -Dapp-url=bluemix-todo-java-cloudant.mybluemix.net -Dorg=organization -Dcloudant-url=https://user.cloudant.com -Dcloudant-username=user -Dcloudant-password=password -Dspace=myspace
 
 ### Additional Information
 

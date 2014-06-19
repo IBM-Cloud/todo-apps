@@ -5,7 +5,7 @@ in either a Mongo DB or a Couch DB using Cloudant.
 ## Prerequisites
 Before running this app or deploying it to BlueMix you need to have 
 [Ruby](https://www.ruby-lang.org), [Gem](http://rubygems.org/), [Sinatra](http://www.sinatrarb.com/), 
-[Bundler](http://bundler.io/), and the [CloudFoundry Command Line](http://www.ng.bluemix.net/docs/BuildingWeb.jsp#install-cf) 
+[Bundler](http://bundler.io/), and the [CloudFoundry Command Line](https://github.com/cloudfoundry/cli) 
 installed.  If you are a Ruby developer you probably already have most of these installed.
 
 ## Deploying To BlueMix

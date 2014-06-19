@@ -68,7 +68,7 @@ installed the Cloud Foundry command line tool.  To sign up for BlueMix head to
 [bluemix.net](http://bluemix.net) and register.
 
 You can download the Cloud Foundry command line tool by following the steps in the
-[BlueMix documentation](http://www.ng.bluemix.net/docs/BuildingWeb.jsp#install-cf).
+[README file](https://github.com/cloudfoundry/cli).
 
 After you have installed the Cloud Foundry command line tool you need to point it
 at BlueMix so it knows where to deploy the applications.  You can do this by running
