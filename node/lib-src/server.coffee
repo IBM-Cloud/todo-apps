@@ -18,7 +18,7 @@ Q       = require "q"
 _       = require "underscore"
 ports   = require "ports"
 express = require "express"
-cfEnv   = require "cf-env"
+cfEnv   = require "cfenv"
 
 couchDB = require "./couch-db"
 mongoDB = require "./mongo-db"
@@ -29,7 +29,7 @@ utils   = require "./utils"
 todoDB = null
 
 # get core data from Cloud Foundry environment
-cfCore = cfEnv.getCore
+appEnv = cfEnv.getAppEnv
     name: utils.PROGRAM
 
 #-------------------------------------------------------------------------------
@@ -88,7 +88,7 @@ exports.start = (options) ->
 # the url to the CouchDB instance
 #-------------------------------------------------------------------------------
 getCouchURL = ->
-    url = cfEnv.getServiceURL TODO_COUCH_SERVICE,
+    url = appEnv.getServiceURL TODO_COUCH_SERVICE,
         pathname: "database"
         auth:     ["username", "password"]
 
@@ -107,7 +107,7 @@ getCouchURL = ->
 # the url to the MongoDB instance
 #-------------------------------------------------------------------------------
 getMongoURL = ->
-    url = cfEnv.getServiceURL TODO_MONGO_SERVICE
+    url = appEnv.getServiceURL TODO_MONGO_SERVICE
 
     url = url || TODO_MONGO_LOCAL
 
@@ -120,7 +120,7 @@ class Server
 
     #---------------------------------------------------------------------------
     constructor: (options={}) ->
-        options.port    ?= cfCore.port
+        options.port    ?= appEnv.port
         options.verbose ?= false
 
         {@port, @verbose} = options
@@ -152,8 +152,8 @@ class Server
         app.delete "/api/todos/:id", (req, res) => req.tx.delete()
 
         # start the server, resolving the promise when started
-        app.listen @port, cfCore.bind, =>
-            utils.log "server starting: #{cfCore.url}"
+        app.listen @port, appEnv.bind, =>
+            utils.log "server starting: #{appEnv.url}"
 
             deferred.resolve @
 

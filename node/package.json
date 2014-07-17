@@ -4,7 +4,7 @@
     "description":          "node server for TodoMVC using CouchDB for storage",
     "version":              "0.1.0",
     "dependencies": {
-        "cf-env":           "0.1.x",
+        "cfenv":           "0.2.x",
         "express":          "3.4.x",
         "nano":             "4.7.x",
         "nopt":             "2.2.x",

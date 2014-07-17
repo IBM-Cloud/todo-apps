@@ -103,23 +103,26 @@ tasks.copycloudantmanifest = ->
 #-------------------------------------------------------------------------------
 
 tasks.createmongoservice = ->
-    exec "cf create-service mongodb 100 todo-mongo-db" 
+    exec "cf create-service mongolab sandbox todo-mongo-db" 
 
 #-------------------------------------------------------------------------------
 
-exports.createcloudantservice = 
-    doc : "creates a Cloudant service"
-    run : (username, password, url) ->
-        exec 'cf cups todo-couch-db -p \'{"username":"' + username + '","password":"' + password + '","url":"' + url + '"}\''
+tasks.createcloudantservice = ->
+    exec "cf create-service cloudantNoSQLDB Shared todo-couch-db"
+
+#exports.createcloudantservice = 
+#    doc : "creates a Cloudant service"
+#    run : (username, password, url) ->
+#        #exec 'cf cups todo-couch-db -p \'{"username":"' + username + '","password":"' + password + '","url":"' + url + '"}\''
 
 #-------------------------------------------------------------------------------
 
 exports.deploycloudant =
     doc : "deploys the ToDo app with Cloudant as the backend"
-    run: (appName, username, password, url) ->
+    run: (appName) ->
         tasks.build()
         tasks.copycloudantmanifest()
-        exports.createcloudantservice.run(username, password, url)
+        tasks.createcloudantservice()
         exec "cf push " + appName + " -n " + appName 
 
 #-------------------------------------------------------------------------------
