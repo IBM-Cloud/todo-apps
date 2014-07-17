@@ -115,17 +115,9 @@ end
 # Creates the Cloudant user-service
 task :createCloudantService do
   puts '*****************************************'
-  puts '* Creating Cloudant user-service        *'
+  puts '* Creating Cloudant sevvice             *'
   puts '*****************************************'
-  puts 'WARNING: If this fails with the message "The service ' +
-   'instance name is taken: todo-couch-db" that is expected if the service already exists'
-  STDOUT.puts "Cloudant Username: "
-  user = STDIN.gets.chomp
-  STDOUT.puts "Cloudant Password: "
-  pwd = STDIN.noecho(&:gets).chomp
-  STDOUT.puts "Cloudant URL: (For example: https://user.cloudant.com)"
-  url = STDIN.gets.chomp
-  system('cf cups todo-couch-db -p \'{"username":"' + user + '","password":"' + pwd + '","url":"' + url + '"}\'')
+  system('cf create-service cloudantNoSQLDB Shared todo-couch-db')
 end
 
 # Creates the Monogo DB service
@@ -133,7 +125,7 @@ task :createMongoService do
   puts '*****************************************'
   puts '* Creating Mongo DB service             *'
   puts '*****************************************'
-  system('cf create-service mongodb 100 todo-mongo-db')
+  system('cf create-service mongolab sandbox todo-mongo-db')
 end
 
 # Pushes the app to BlueMix

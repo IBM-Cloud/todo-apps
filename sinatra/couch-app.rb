@@ -30,12 +30,6 @@ def get_couch_db(creds)
   end
   url = url + 'bluemix-todo'
 
-  auth = creds['username'] + ':' + creds['password'] + '@'
-  if(url.start_with?('https'))
-    url = url.insert(8, auth)
-  else
-    url = url.insert(7, auth)
-  end
   puts 'Using URL: ' + url
   #This will create the DB if it does not exist, however it will fail if you do not have permissions
   CouchRest.database!(url)
@@ -61,12 +55,8 @@ end
 creds = nil
 if ENV['VCAP_SERVICES']
   svcs = JSON.parse ENV['VCAP_SERVICES']  
-  svcs['user-provided'].each do |serv|
-    if serv['name'] == 'todo-couch-db'
-      creds = serv['credentials']
-      break
-    end
-  end
+  cloudant = svcs.detect { |k,v| k =~ /^cloudantNoSQLDB/ }.last.first
+  creds = cloudant['credentials']
 end
 
 db = get_couch_db(creds)
