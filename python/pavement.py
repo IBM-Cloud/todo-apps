@@ -57,18 +57,14 @@ def create_mongo_service():
 	print '************************************'
 	print '* Creating Mongo DB Service        *'
 	print '************************************'
-	call(["cf", "create-service", "mongodb", "100", "todo-mongo-db"])
+	call(["cf", "create-service", "mongolab", "sandbox", "todo-mongo-db"])
 
 @task
 def create_cloudant_service():
 	print '************************************'
 	print '* Creating Cloudant Service        *'
 	print '************************************'
-	print 'WARNING: If this fails with the message "The service instance name is taken: todo-couch-db" that is expected if the service already exists'
-	user = raw_input("Cloudant Username:\n")
-	pwd = getpass.getpass("Cloudant Password:\n")
-	url = raw_input("Cloudant URL: (For example: https://user.cloudant.com)\n")
-	call(["cf", "cups", "todo-couch-db", "-p", '{"username":"' + user + '","password":"' + pwd + '","url":"' + url + '"}'])
+	call(["cf", "create-service", "cloudantNoSQLDB", "Shared", "todo-couch-db"])
 
 @task
 def cf_login():

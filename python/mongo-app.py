@@ -25,8 +25,7 @@ app = Flask(__name__, static_url_path='/static')
 
 # Gets the Mongo DB URL and DB from VCAP_SERVICES if present, else
 # assumes the Mongo instance is running locally
-url = 'mongodb://localhost:27017/'
-dbName = 'db'
+url = 'mongodb://localhost:27017/db'
 if os.environ.has_key('VCAP_SERVICES'):
     vcapJson = json.loads(os.environ['VCAP_SERVICES'])
     for key, value in vcapJson.iteritems():
@@ -34,11 +33,10 @@ if os.environ.has_key('VCAP_SERVICES'):
         mongoServices = filter(lambda s: s['name'] == 'todo-mongo-db', value)
         if len(mongoServices) != 0:
             mongoService = mongoServices[0]
-            url = mongoService['credentials']['url']
-            dbName = mongoService['credentials']['db']
+            url = mongoService['credentials']['uri']
 
 client = MongoClient(url)
-db = client[dbName]
+db = client.get_default_database()
 collection = db.todos
 
 # Create a scheduled task that will cleanup ToDos if the list grows too big
