@@ -106,12 +106,12 @@
       </dependency>
       <dependency>
         <groupId>org.springframework.cloud</groupId>
-        <artifactId>core</artifactId>
+        <artifactId>spring-cloud-core</artifactId>
         <version>${spring-cloud.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springframework.cloud</groupId>
-        <artifactId>cloudfoundry-connector</artifactId>
+        <artifactId>spring-cloud-cloudfoundry-connector</artifactId>
         <version>${spring-cloud.version}</version>
       </dependency>
     </dependencies>
@@ -154,11 +154,11 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>core</artifactId>
+      <artifactId>spring-cloud-core</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
-      <artifactId>cloudfoundry-connector</artifactId>
+      <artifactId>spring-cloud-cloudfoundry-connector</artifactId>
     </dependency>
   </dependencies>
 
@@ -233,8 +233,8 @@
               <services>
                 <service>
                   <name>todo-mongo-db</name>
-                  <label>mongodb</label>
-                  <plan>100</plan>
+                  <label>mongolab</label>
+                  <plan>sandbox</plan>
                 </service>
               </services>
             </configuration>
@@ -269,12 +269,8 @@
               <services>
                 <service>
                   <name>todo-couch-db</name>
-                  <label>user-provided</label>
-                    <userProvidedCredentials>
-                      <url>${cloudant-url}</url>
-                      <username>${cloudant-username}</username>
-                      <password>${cloudant-password}</password>
-                    </userProvidedCredentials>
+                  <label>cloudantNoSQLDB</label>
+                  <plan>Shared</plan>
                 </service>
               </services>
             </configuration>
@@ -300,6 +296,9 @@
       <id>org.springframework.maven.milestone</id>
       <name>Spring Framework Maven Milestone Repository</name>
       <url>http://maven.springframework.org/milestone</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
     </repository>
   </repositories>
 
@@ -319,7 +318,7 @@
     <junit.version>4.8.1</junit.version>
     <mongo-java-driver.version>2.11.0</mongo-java-driver.version>
     <maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
-    <spring-cloud.version>0.9.8</spring-cloud.version>
+    <spring-cloud.version>1.0.0.RELEASE</spring-cloud.version>
     <space>dev</space>
   </properties>
 </project>
