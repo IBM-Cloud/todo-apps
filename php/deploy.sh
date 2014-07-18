@@ -75,19 +75,14 @@ create_mongo_service() {
   echo "********************************"
   echo "* Creating Mongo DB Service    *"
   echo "********************************"
-  cf create-service mongodb 100 todo-mongo-db
+  cf create-service mongolab sandbox todo-mongo-db
 }
 
 create_cloudant_service() {
   echo "********************************"
   echo "* Creating Cloudant Service    *"
   echo "********************************"
-  echo 'WARNING: If this fails with the message "The service instance name is taken: todo-couch-db" that is expected if the service already exists'
-  read -p "Cloudant Username:`echo $'\n> '`" user
-  read -s -p "Cloudant Password:`echo $'\n> '`" pw
-  echo $'\n'
-  read -p "Cloudant URL: (For example: https://user.cloudant.com)`echo $'\n> '`" url
-  cf cups todo-couch-db -p "{\"username\":\"${user}\",\"password\":\"${pw}\",\"url\":\"${url}\"}"
+  cf create-service cloudantNoSQLDB Shared todo-couch-db
 }
 
 deploy() {

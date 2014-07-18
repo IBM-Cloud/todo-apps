@@ -58,7 +58,7 @@ final class CouchApp {
 		$this->sag = new Sag($host, $port);
 		$this->sag->useSSL(true);
 		$this->sag->login($username, $password);
-		$this->sag->setDatabase('bluemix-todo');
+		$this->sag->setDatabase('bluemix-todo', true);
 		$this->createView();
     }
 
