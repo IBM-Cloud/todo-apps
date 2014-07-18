@@ -88,63 +88,6 @@ continue to use tools you are comfortable with.  See the individual runtime fold
 (java, node, php, python, sinatra) for more details on how to deploy the various 
 versions.
 
-couch DB and cloudant
-================================================================================
-
-If you want to deploy the Cloudant versions of the various ToDo apps to BlueMix
-there is some additional setup you need to do before doing so.  Cloudant is 
-cloud based implementation of Couch DB, in other words it is a DBaaS 
-(database as a service).  In order to use Cloudant with the ToDo apps you will
-need to sign up for a [Cloudant account](https://cloudant.com/).  It is free
-as long as your usage is limited, in other words you shouldn't have to worry
-about going over the usage limits for the ToDo apps :)
-
-Next you will need to create a database for the ToDo apps to use and create an
-API key and password for the apps to authenticate with.  Watch the short video 
-below to see how to do that or you can follow the written instructions if you
-prefer.
-
-
-### setting up a CouchDB server running on the cloud
-
-Setting up a CouchDB server on the cloud is also easy, if you don't already
-have one running on the cloud.
-
-Head over to the [Cloudant](https://cloudant.com/) web site to sign up for
-a free account.  A free account lets you create some small databases, which
-is perfect for running this demo - it won't use a lot of space.
-
-Once you've got your Cloudant account, head to the dashboard (should be the
-first page you land on after you sign in), and add a new database.
-
-You will be prompted for the name; call it "bluemix-todo".
-
-Once the database is created, all you need to do is add an API key to it.
-From the main dashboard, click the lock icon under the Actions column for the
-"bluemix-todo" database.  If you don't see that, you may be on the page
-for the database itself; click on the orange "Databases" button in the
-left-hand navigation to get back to the main dashboard.
-
-Once you've clicked the lock icon, you be taken to the Permissions page of the
-database.  We want to generate
-a new key, so click that green "Generate API key" on the right side of the
-page.
-
-This will provide two values to you, which you will need to remember.
-Specifically, a Key and Password.  The key will be listed for you in the
-future as a row in the Permissions page, but the Password value you
-will never see again.  We'll need these values, so write them down somewhere!
-Probably copy/paste it into a file temporarily, as we'll be using it again
-in a minute.
-
-You can also see on this page that the new API key only has "Reader"
-authority.  Go ahead and give it Writer and Admin authority as well.
-
-That's all!  Now we'll want to create a BlueMix service for this database.
-
-To do that, follow the directions in the README.md files for the
-language-specific implementations (eg, java, node, etc).
-
 
 adding new implementations
 ================================================================================
@@ -222,11 +165,9 @@ for your platform to install a local Mongo DB server.
 
 ### Couch DB / Cloudant
 
-*  The application should look for the credentials for the Couch DB or
-Cloudant database from a user service called todo-couch-db.  The credentials
-should container three properties username, password, and url.  
+*  You should create a Cloudant service with the name "todo-couch-db".
 
-*  The name of the Couch DB / Cloudant databse to use is "bluemix-todo".
+*  The name of the Couch DB / Cloudant database to use is "bluemix-todo".
 
 <b>View</b>
 

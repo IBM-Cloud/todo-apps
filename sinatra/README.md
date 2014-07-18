@@ -43,11 +43,6 @@ To deploy the app so it uses Cloudant run
 
     $ rake deployCloudantToDo
 
-Before deploying the Cloudant version make sure you have followed the instructions in the "Couch DB
-and Cloudant" section in the top-level [README](../README.md).  When deploying the app so it uses 
-Cloudant you will be prompted to enter your Cloudant username and password as well as your Cloudant URL, 
-which usually takes the form https://username.cloudant.com.  If you do not have a Cloudant account you 
-can sign up for one free at [https://cloudant.com/](https://cloudant.com/).
 
 ### Additional Information
 

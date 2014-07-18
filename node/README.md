@@ -92,9 +92,9 @@ Replace appName with a unique name for your application.  This command will crea
 
 To deploy the Couch DB / Cloudant version to BlueMix run
 
-    $ jbuild deploycloudant appName cloudantUsername cloudantPassword https://cloudantuser.cloudant.com
+    $ jbuild deploycloudant appName
 
-Replace appName with a unique name for your application.  Replace cloudantUsername and cloudantPassword with your Cloudant username and password.  Make sure you also change the last parameter, the URL, to the Cloudant URL containing the database named bluemix-todo.
+Replace appName with a unique name for your application.  
 
 Other commands you may want to use
 

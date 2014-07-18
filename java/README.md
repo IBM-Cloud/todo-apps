@@ -66,13 +66,13 @@ space.  For example
 To do this you just need to run a Maven command specifying the URL, organization, Cloudant 
 credentials, and Cloudant URL.
 
-    $ mvn -P cloudant-deploy -Dapp-url=bluemix-todo-java-cloudant.mybluemix.net -Dorg=organization -Dcloudant-url=https://user.cloudant.com -Dcloudant-username=user -Dcloudant-password=password
+    $ mvn -P cloudant-deploy -Dapp-url=bluemix-todo-java-cloudant.mybluemix.net -Dorg=organization
 
 Just like with the Mongo DB version you need to make sure the app-url is unique.  In addition 
 by default this command will use the space called dev.  You can specify a different space if 
 you would like using the space parameter.
 
-    $ mvn -P cloudant-deploy -Dapp-url=bluemix-todo-java-cloudant.mybluemix.net -Dorg=organization -Dcloudant-url=https://user.cloudant.com -Dcloudant-username=user -Dcloudant-password=password -Dspace=myspace
+    $ mvn -P cloudant-deploy -Dapp-url=bluemix-todo-java-cloudant.mybluemix.net -Dorg=organization -Dspace=myspace
 
 ### Additional Information
 
