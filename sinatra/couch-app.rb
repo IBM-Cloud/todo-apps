@@ -118,5 +118,13 @@ put '/api/todos/:id' do
   tdJson.to_json
 end
 
+get '/jobid' do
+  ENV['CNTM_JOB_UUID']
+end
+
+get '/instanceid' do
+  ENV['CNTM_INSTANCE_UUID']
+end
+
 # Translate the Cloudant ToDo JSON into JSON the client is expecting
 def to_client_todo(obj) obj['value'].merge({'id' => obj['id'], 'order' => obj['key']}) end
