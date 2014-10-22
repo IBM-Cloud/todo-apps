@@ -52,14 +52,7 @@ def create_view(db)
   end
 end
 
-creds = nil
-if ENV['VCAP_SERVICES']
-  svcs = JSON.parse ENV['VCAP_SERVICES']  
-  cloudant = svcs.detect { |k,v| k =~ /^cloudantNoSQLDB/ }.last.first
-  creds = cloudant['credentials']
-end
-
-db = get_couch_db(creds)
+db = get_couch_db(ENV['CLOUDANT_URI'] || ENV['HTTP_URI'])
 create_view(db)
 
 #Schedule a task to run every 5 seconds to clean up the ToDos
