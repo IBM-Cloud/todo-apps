@@ -63,19 +63,19 @@ db = get_couch_db(creds)
 create_view(db)
 
 #Schedule a task to run every 5 seconds to clean up the ToDos
-scheduler = Rufus::Scheduler.new
-scheduler.every '30s' do
-  rows = db.view('todos/allTodos')['rows']
-  if rows.length > 0
-    if rows[0]['value'] > 20
-      params = {
-        :reduce => false 
-      }
-      id = db.view('todos/allTodos', params)['rows'][0]['id']
-      db.delete_doc(db.get(id))
-    end
-  end
-end
+# scheduler = Rufus::Scheduler.new
+# scheduler.every '30s' do
+#   rows = db.view('todos/allTodos')['rows']
+#   if rows.length > 0
+#     if rows[0]['value'] > 20
+#       params = {
+#         :reduce => false
+#       }
+#       id = db.view('todos/allTodos', params)['rows'][0]['id']
+#       db.delete_doc(db.get(id))
+#     end
+#   end
+# end
 
 #When a GET is issued to the root redirect to index.html
 get '/' do
