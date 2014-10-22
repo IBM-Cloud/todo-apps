@@ -22,13 +22,7 @@ require 'json'
 # Helper function to construct the proper URL 
 # to the Couch DB.
 # URL should be http(s)://username:password@user.cloudant.com/bluemix-todo
-def get_couch_db(creds) 
-  url = creds['url']
-  if !url.end_with?('/')
-    url = url + '/'
-  end
-  url = url + 'bluemix-todo'
-
+def get_couch_db(url)
   puts 'Using URL: ' + url
   #This will create the DB if it does not exist, however it will fail if you do not have permissions
   CouchRest.database!(url)
