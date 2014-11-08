@@ -1,5 +1,5 @@
 ## About
-A backend for the ToDo app written written in Python.  ToDos can be stored in 
+A backend for the ToDo app written in Python.  ToDos can be stored in 
 either a Mongo DB or Couch DB using Cloudant.
 
 ## Prerequisites
