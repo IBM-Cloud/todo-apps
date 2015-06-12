@@ -33,7 +33,11 @@ if os.environ.has_key('VCAP_SERVICES'):
         mongoServices = filter(lambda s: s['name'] == 'todo-mongo-db', value)
         if len(mongoServices) != 0:
             mongoService = mongoServices[0]
-            url = mongoService['credentials']['uri']
+            if "uri" in mongoService['credentials']:
+                url = mongoService['credentials']['uri']
+            else:
+                url = mongoService['credentials']['url']
+
 
 client = MongoClient(url)
 db = client.get_default_database()
