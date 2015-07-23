@@ -13,9 +13,11 @@ tasks = defineTasks exports,
     serve: "run the test server stand-alone"
     build: "build the server"
     test:  "run tests"
-    copymongomanifest: "copies the mongo manifest file"
+    copymongomanifest: "copies the mongolab manifest file"
     copycloudantmanifest: "copies the cloudant manifest file"
+    copycomposemanifest: "copies the compose mongo manifest file"
     createmongoservice: "creates a Mongo DB service called todo-mongo-db"
+    createcloudantservice: "creates a Cloudant DB service called todo-cloudant-db"
 
 WatchSpec = "lib-src/**/* tests/**/*"
 
@@ -102,18 +104,19 @@ tasks.copycloudantmanifest = ->
 
 #-------------------------------------------------------------------------------
 
+tasks.copycomposemanifest = ->
+    rm "manifest.yml"
+    cp "compose-manifest.yml", "manifest.yml"
+
+#-------------------------------------------------------------------------------
+
 tasks.createmongoservice = ->
-    exec "cf create-service mongolab sandbox todo-mongo-db" 
+    exec "cf create-service mongolab sandbox todo-mongo-db"
 
 #-------------------------------------------------------------------------------
 
 tasks.createcloudantservice = ->
     exec "cf create-service cloudantNoSQLDB Shared todo-couch-db"
-
-#exports.createcloudantservice = 
-#    doc : "creates a Cloudant service"
-#    run : (username, password, url) ->
-#        #exec 'cf cups todo-couch-db -p \'{"username":"' + username + '","password":"' + password + '","url":"' + url + '"}\''
 
 #-------------------------------------------------------------------------------
 
@@ -123,16 +126,25 @@ exports.deploycloudant =
         tasks.build()
         tasks.copycloudantmanifest()
         tasks.createcloudantservice()
-        exec "cf push " + appName + " -n " + appName 
+        exec "cf push " + appName + " -n " + appName
 
 #-------------------------------------------------------------------------------
 
 exports.deploymongo =
-    doc : "deploys the ToDo app with Mongo DB as the backend"
+    doc : "deploys the ToDo app with MongoLab Mongo DB as the backend"
     run: (appName) ->
         tasks.build()
         tasks.copymongomanifest()
         tasks.createmongoservice()
+        exec "cf push " + appName + " -n " + appName
+
+#-------------------------------------------------------------------------------
+
+exports.deploycompose =
+    doc : "deploys the ToDo app with Compose Mongo DB as the backend"
+    run: (appName) ->
+        tasks.build()
+        tasks.copycomposemanifest()
         exec "cf push " + appName + " -n " + appName
 
 #-------------------------------------------------------------------------------
