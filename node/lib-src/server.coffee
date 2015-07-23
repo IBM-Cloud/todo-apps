@@ -2,7 +2,8 @@
 
 # name of the todo service in cloud foundry
 TODO_COUCH_SERVICE = "todo-couch-db"
-TODO_MONGO_SERVICE = "todo-mongo-db"
+TODO_MONGOLAB_SERVICE = "todo-mongo-db"
+TODO_COMPOSEMONGO_SERVICE = "todo-compose-mongo-db"
 
 # local couchdb server
 TODO_COUCH_LOCAL   = "http://127.0.0.1:5984"
@@ -73,10 +74,20 @@ exports.start = (options) ->
 
         # handle exceptions
         .done()
-    else
-        utils.log "Using Mongo DB"
+    else if options.db == "mongo"
+        utils.log "Using MongoLab DB"
         # get the url to the Mongo database
-        mongoURL = getMongoURL()
+        mongoURL = getMongoLabURL()
+        utils.log "using database:  #{mongoURL}"
+
+        # initialize the database, async
+        todoDB = mongoDB.init mongoURL
+        server = new Server options
+        server.start()
+    else if options.db == "compose"
+        utils.log "Using Compose Mongo DB"
+        # get the url to the Mongo database
+        mongoURL = getComposeMongoURL()
         utils.log "using database:  #{mongoURL}"
 
         # initialize the database, async
@@ -104,10 +115,28 @@ getCouchURL = ->
     return url
 
 #-------------------------------------------------------------------------------
-# the url to the MongoDB instance
+# the url to the MongoLab DB instance
 #-------------------------------------------------------------------------------
-getMongoURL = ->
-    url = appEnv.getServiceURL TODO_MONGO_SERVICE
+getMongoLabURL = ->
+    url = appEnv.getServiceURL TODO_MONGOLAB_SERVICE
+
+    url = url || TODO_MONGO_LOCAL
+
+    return url
+
+#-------------------------------------------------------------------------------
+# the url to the Compose Mongo DB instance
+#-------------------------------------------------------------------------------
+getComposeMongoURL = ->
+    mongoCreds = appEnv.getServiceCreds TODO_COMPOSEMONGO_SERVICE
+    if mongoCreds
+        composeDbName = "todoDB"
+        url = "mongodb://" +
+               mongoCreds.user + ":" +
+               mongoCreds.password + "@" +
+               mongoCreds.uri + ":" +
+               mongoCreds.port + "/" +
+               composeDbName;
 
     url = url || TODO_MONGO_LOCAL
 

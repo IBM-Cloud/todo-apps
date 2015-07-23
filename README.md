@@ -2,9 +2,8 @@ about
 ================================================================================
 
 The ToDo sample apps are meant to be simple demos of how you can take advantage
-of BlueMix and a database service.  In addition it shows how to take advantage
-of both the [built-in](https://www.ng.bluemix.net/docs/RT/Runtimes.jsp) and 
-[community buildpacks](https://github.com/cloudfoundry-community/cf-docs-contrib/wiki/Buildpacks) 
+of Bluemix and a database service.  In addition it shows how to take advantage
+of both the [built-in](https://www.ng.bluemix.net/docs/starters/rt_landing.html) and [community buildpacks](https://github.com/cloudfoundry-community/cf-docs-contrib/wiki/Buildpacks) 
 to deploy your app using whatever runtime you choose.
 
 The ToDo app is pretty simple, it allows you to add an persist ToDos that you
@@ -65,10 +64,9 @@ running the samples
 
 To run the samples on BlueMix you must have signed up for BlueMix and have 
 installed the Cloud Foundry command line tool.  To sign up for BlueMix head to
-[bluemix.net](http://bluemix.net) and register.
+[bluemix.net](https://console.ng.bluemix.net/?cm_mmc=Display-GitHubReadMe-_-BluemixSampleApp-Todo-_-Node-Compose-_-BM-DevAd) and register.
 
-You can download the Cloud Foundry command line tool by following the steps in the
-[README file](https://github.com/cloudfoundry/cli).
+You can download the Cloud Foundry command line tool by following the steps in the [README file](https://github.com/cloudfoundry/cli).
 
 After you have installed the Cloud Foundry command line tool you need to point it
 at BlueMix so it knows where to deploy the applications.  You can do this by running
@@ -153,7 +151,7 @@ The response should be a 204.
 ### Mongo
 
 *  The Mongo implementation should use a collection called "todos".
-*  You should create a Mongo DB service with the name "todo-mongo-db".
+*  You should create a Mongo DB service with the name "todo-mongo-db" or "todo-compose-mongo-db", depending on which Mongo provider you choose.
 
 #### Setting Up a Mongo DB server Locally
 
