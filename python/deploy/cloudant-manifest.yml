@@ -17,6 +17,5 @@ applications:
 - name: bluemix-todo-python-cloudant
   memory: 256M
   command: python couch-app.py
-  buildpack: https://github.com/joshuamckenty/heroku-buildpack-python
   services:
   - todo-couch-db

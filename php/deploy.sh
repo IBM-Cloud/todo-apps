@@ -75,7 +75,7 @@ create_mongo_service() {
   echo "********************************"
   echo "* Creating Mongo DB Service    *"
   echo "********************************"
-  cf create-service mongolab sandbox todo-mongo-db
+  cf create-service mongodb 100 todo-mongo-db
 }
 
 create_cloudant_service() {

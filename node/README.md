@@ -6,7 +6,7 @@ Refer to the README.md file in the parent directory
 (eg, `bluemix-todo-apps/README.md`) for general instructions regarding
 this application and the database service it requires.
 
-This application supports both Mongo DB ([Compose.io][compose_url] and [MongoLab][mongolab_url]) and Couch DB ([Cloudant][cloudant_url]) as a backend.
+This application supports both Mongo DB and Couch DB ([Cloudant][cloudant_url]) as a backend.
 
 ## How it Works
 
@@ -69,8 +69,8 @@ This application supports both Mongo DB ([Compose.io][compose_url] and [MongoLab
 			$ jbuild deploycompose appName
 		
 		
-	#### MongoLab
-	MongoLab is 3rd party, fully-managed MongoDB vendor. The following command will create a MongoLab service called todo-mongo-db, bind it to your app, and start your app:
+	#### MongoDB
+	The following command will create a MongoDB service called todo-mongo-db, bind it to your app, and start your app:
 	
 		$ jbuild deploymongo appName
 		
@@ -197,7 +197,6 @@ This data is collected from the `VCAP_APPLICATION` environment variable in IBM B
 Deployment tracking can be disabled by removing `require("cf-deployment-tracker-client").track();` from the beginning of the `server.js` file at the root of this repo.
 
 [compose_url]: https://www.compose.io/
-[mongolab_url]: https://mongolab.com/
 [cloudant_url]: https://cloudant.com/
 [nodejs_install_url]: https://nodejs.org/
 [bluemix_signup_url]: https://console.ng.bluemix.net/?cm_mmc=Display-GitHubReadMe-_-BluemixSampleApp-Todo-_-Node-Compose-_-BM-DevAd

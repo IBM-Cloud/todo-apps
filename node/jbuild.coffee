@@ -111,7 +111,7 @@ tasks.copycomposemanifest = ->
 #-------------------------------------------------------------------------------
 
 tasks.createmongoservice = ->
-    exec "cf create-service mongolab sandbox todo-mongo-db"
+    exec "cf create-service mongodb 100 todo-mongo-db"
 
 #-------------------------------------------------------------------------------
 

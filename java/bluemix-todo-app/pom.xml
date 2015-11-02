@@ -233,8 +233,8 @@
               <services>
                 <service>
                   <name>todo-mongo-db</name>
-                  <label>mongolab</label>
-                  <plan>sandbox</plan>
+                  <label>mongodb</label>
+                  <plan>100</plan>
                 </service>
               </services>
             </configuration>

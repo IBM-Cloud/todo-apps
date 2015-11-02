@@ -17,6 +17,5 @@ applications:
 - name: bluemix-todo-python-mongo
   memory: 256M
   command: python mongo-app.py
-  buildpack: https://github.com/joshuamckenty/heroku-buildpack-python
   services:
   - todo-mongo-db

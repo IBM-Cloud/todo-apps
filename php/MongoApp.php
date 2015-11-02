@@ -39,8 +39,8 @@ final class MongoApp {
 				foreach ($serviceTypes as $service) {
 					if($service['name'] == 'todo-mongo-db') {
 						$credentials = $service['credentials'];
-						$this->mongoUrl = $credentials['uri'];
-						$parsedUrl = parse_url($credentials['uri']);
+						$this->mongoUrl = $credentials['url'];
+						$parsedUrl = parse_url($credentials['url']);
 						$this->dbName = preg_replace('/\/(.*)/', '$1', $parsedUrl['path']);
 						break;
 					}

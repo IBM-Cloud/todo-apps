@@ -25,9 +25,9 @@ uri = 'mongodb://localhost:27017'
 database = 'db'
 if ENV['VCAP_SERVICES']
   svcs = JSON.parse ENV['VCAP_SERVICES']  
-  mongo = svcs.detect { |k,v| k =~ /^mongolab/ }.last.first
+  mongo = svcs.detect { |k,v| k =~ /^mongodb/ }.last.first
   creds = mongo['credentials']
-  uri = creds['uri']
+  uri = creds['url']
   database = uri[%r{/([^/\?]+)(\?|$)}, 1]
 end
 DB = Mongo::MongoClient.from_uri(uri).db(database, :pool_size => 5, :timeout => 5)

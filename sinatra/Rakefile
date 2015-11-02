@@ -125,7 +125,7 @@ task :createMongoService do
   puts '*****************************************'
   puts '* Creating Mongo DB service             *'
   puts '*****************************************'
-  system('cf create-service mongolab sandbox todo-mongo-db')
+  system('cf create-service mongodb 100 todo-mongo-db')
 end
 
 # Pushes the app to BlueMix

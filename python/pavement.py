@@ -57,7 +57,7 @@ def create_mongo_service():
 	print '************************************'
 	print '* Creating Mongo DB Service        *'
 	print '************************************'
-	call(["cf", "create-service", "mongolab", "sandbox", "todo-mongo-db"])
+	call(["cf", "create-service", "mongodb", "100", "todo-mongo-db"])
 
 @task
 def create_cloudant_service():
