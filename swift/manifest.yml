@@ -1,11 +1,11 @@
 declared-services:
-  TodoList-Cloudant:
+  todo-couch-db:
     label: cloudantNoSQLDB
     plan: shared
 applications:
-- name: Kitura-TodoList
+- name: TodoList
   memory: 256M
   instances: 2
   random-route: true
   services:
-  - TodoList-Cloudant
+  - todo-couch-db
