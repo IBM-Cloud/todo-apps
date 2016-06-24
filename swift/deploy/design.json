@@ -1,0 +1,12 @@
+{
+  "_id": "_design/todolist",
+  "views" : {
+    "allTodos" : {
+      "map" : "function(doc) { if (doc.title != null && doc.completed != null) { emit(doc.order, [doc._id, doc.title, doc.completed, doc.order]); }}"
+    },
+    "totalTodos": {
+      "map" : "function(doc) { if (doc.title != null && doc.completed != null) { emit(doc.id, 1); }}",
+      "reduce" : "_count"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+declared-services:
+  todo-couch-db:
+    label: cloudantNoSQLDB
+    plan: shared
+applications:
+- name: TodoList
+  memory: 256M
+  instances: 2
+  random-route: true
+  services:
+  - todo-couch-db
