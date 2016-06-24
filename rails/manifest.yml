@@ -1,0 +1,9 @@
+applications:
+- services:
+  - todolist-db2
+  disk_quota: 1024M
+  name: bluemix-todo-rails
+  path: .
+  domain: mybluemix.net
+  instances: 1
+  memory: 256M
