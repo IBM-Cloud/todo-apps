@@ -116,7 +116,7 @@ tasks.createmongoservice = ->
 #-------------------------------------------------------------------------------
 
 tasks.createcloudantservice = ->
-    exec "cf create-service cloudantNoSQLDB Shared todo-couch-db"
+    exec "cf create-service cloudantNoSQLDB Lite todo-couch-db"
 
 #-------------------------------------------------------------------------------
 

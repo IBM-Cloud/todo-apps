@@ -118,7 +118,7 @@ Make sure you are running at least XCode 7.3.
 4. Create the Cloudant backend and attach it to your instance.
 
     ```
-    cf create-service cloudantNoSQLDB Shared bluemix-todo
+    cf create-service cloudantNoSQLDB Lite bluemix-todo
     cf bind-service TodoList bluemix-todo
     cf restage
     ```
