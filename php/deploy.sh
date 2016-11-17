@@ -82,7 +82,7 @@ create_cloudant_service() {
   echo "********************************"
   echo "* Creating Cloudant Service    *"
   echo "********************************"
-  cf create-service cloudantNoSQLDB Shared todo-couch-db
+  cf create-service cloudantNoSQLDB Lite todo-couch-db
 }
 
 deploy() {
