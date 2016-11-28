@@ -1,7 +1,7 @@
 declared-services:
   todo-couch-db:
     label: cloudantNoSQLDB
-    plan: shared
+    plan: Lite
 applications:
 - name: TodoList
   memory: 256M

@@ -117,7 +117,7 @@ task :createCloudantService do
   puts '*****************************************'
   puts '* Creating Cloudant sevvice             *'
   puts '*****************************************'
-  system('cf create-service cloudantNoSQLDB Shared todo-couch-db')
+  system('cf create-service cloudantNoSQLDB Lite todo-couch-db')
 end
 
 # Creates the Monogo DB service

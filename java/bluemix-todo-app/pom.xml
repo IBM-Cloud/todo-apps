@@ -269,7 +269,7 @@
                 <service>
                   <name>todo-couch-db</name>
                   <label>cloudantNoSQLDB</label>
-                  <plan>Shared</plan>
+                  <plan>Lite</plan>
                 </service>
               </services>
             </configuration>

@@ -64,7 +64,7 @@ def create_cloudant_service():
 	print '************************************'
 	print '* Creating Cloudant Service        *'
 	print '************************************'
-	call(["cf", "create-service", "cloudantNoSQLDB", "Shared", "todo-couch-db"])
+	call(["cf", "create-service", "cloudantNoSQLDB", "Lite", "todo-couch-db"])
 
 @task
 def cf_login():
