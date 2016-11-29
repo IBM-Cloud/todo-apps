@@ -71,6 +71,8 @@ for general instructions regarding this application.
   git clone https://github.com/IBM-Bluemix/todo-apps.git
   ```
 
+1. Configure a database
+
   ### To use Cloudant as database
 
   1. Create an instance of Cloudant to store the todos
@@ -91,7 +93,7 @@ for general instructions regarding this application.
     cf service-key todo-db for-local
     ```
 
-  1. Create a file name `vcap-local.json` with the following content:
+  1. Create a file name `vcap-local.json` in the `node` directory with the following content:
 
     ```
     {
@@ -110,7 +112,7 @@ for general instructions regarding this application.
     }
     ```
 
-    Replace the url with the value retrieved from the service key before.
+    Replace the url with the value retrieved from the service key.
 
   ### To use Compose for MongoDB as database
 
@@ -132,7 +134,7 @@ for general instructions regarding this application.
     cf service-key todo-db for-local
     ```
 
-  1. Create a file name `vcap-local.json` with the following content:
+  1. Create a file name `vcap-local.json` in the `node` directory with the following content:
 
     ```
     {
@@ -152,7 +154,7 @@ for general instructions regarding this application.
     }
     ```
 
-    Replace the placeholders with the values retrieved from the service key before.
+    Replace the placeholders with the values retrieved from the service key.
 
 1. Get the application dependencies
 
@@ -176,7 +178,7 @@ To troubleshoot your Bluemix app the main useful source of information is the lo
 
 ### License
 
-[Apache License, Version 2.0][../LICENSE]
+[Apache License, Version 2.0](../LICENSE)
 
 ### Privacy Notice
 
