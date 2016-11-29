@@ -51,7 +51,7 @@ for general instructions regarding this application.
 
   ### To use Compose for MongoDB as database
 
-  1. Create an instance of Cloudant to store the todos
+  1. Create an instance of MongoDB to store the todos
 
     ```
     cf create-service compose-for-mongodb Standard todo-db
