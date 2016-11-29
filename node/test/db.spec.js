@@ -52,8 +52,8 @@ describe('DB', () => {
       db.search().then(items => {
         assert.equal(1, items.length);
         assert.equal(item.title, items[0].title);
-      });
-    }).then(() => { done(); });
+      }).then(() => { done(); });
+    })
   });
 
   it('should be able to read an item', (done) => {
@@ -71,9 +71,9 @@ describe('DB', () => {
     }).then(() => {
       db.count().then(count => {
         assert.equal(2, count);
+      }).then(() => {
+        done();
       });
-    }).then(() => {
-      done();
     });
   });
 
@@ -91,11 +91,11 @@ describe('DB', () => {
         assert.equal(updatedItem.title, `-${item.title}-`);
         assert.equal(updatedItem.completed, !item.completed);
         db.read(updatedItem.id).then(loadedItem => {
-          assert.equal(loadedItem.title, `-${item.title}-`, 'Loaded item 'title' differs');
-          assert.equal(loadedItem.completed, !item.completed, 'Loaded item 'completed' differs');
-        });
+          assert.equal(loadedItem.title, `-${item.title}-`);
+          assert.equal(loadedItem.completed, !item.completed);
+        }).then(() => done());
       });
-    }).then(() => done());
+    });
   });
 
   it('should be able to delete an item', (done) => {
@@ -111,8 +111,8 @@ describe('DB', () => {
       id = savedItem.id;
       db.delete(savedItem.id).then(deletedItem => {
         assert.equal(deletedItem.id, id);
-      });
-    }).then(() => done());
+      }).then(() => done());
+    });
   });
 
 });

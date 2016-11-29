@@ -3,7 +3,7 @@
 TodoMVC using Cloudant and Compose for MongoDB services running on Bluemix.
 
 Refer to the [README.md](../README.md) file in the parent directory
-for general instructions regarding this application and the database service it requires.
+for general instructions regarding this application.
 
 ## How it Works
 
@@ -41,11 +41,21 @@ for general instructions regarding this application and the database service it 
 
   The host you use will determinate your application url initially, e.g. `<host>.mybluemix.net`.
 
-1. Create an instance of Cloudant to store the todos
+  ### To use Cloudant as database
 
-  ```
-  cf create-service cloudantNoSQLDB Lite todo-db
-  ```
+  1. Create an instance of Cloudant to store the todos
+
+    ```
+    cf create-service cloudantNoSQLDB Lite todo-db
+    ```
+
+  ### To use Compose for MongoDB as database
+
+  1. Create an instance of Cloudant to store the todos
+
+    ```
+    cf create-service compose-for-mongodb Standard todo-db
+    ```
 
 1. Push the application
 
@@ -61,42 +71,88 @@ for general instructions regarding this application and the database service it 
   git clone https://github.com/IBM-Bluemix/todo-apps.git
   ```
 
-1. Create an instance of Cloudant to store the todos
+  ### To use Cloudant as database
 
-  ```
-  cf create-service cloudantNoSQLDB Lite todo-db
-  ```
+  1. Create an instance of Cloudant to store the todos
 
-1. Create a set of credentials for this service
+    ```
+    cf create-service cloudantNoSQLDB Lite todo-db
+    ```
 
-  ```
-  cf create-service-key todo-db for-local
-  ```
+  1. Create a set of credentials for this service
 
-1. View the credentials and take note of the `url` value
+    ```
+    cf create-service-key todo-db for-local
+    ```
 
-  ```
-  cf service-key todo-db for-local
-  ```
+  1. View the credentials and take note of the `url` value
 
-1. Create a file name `vcap-local.json` with the following content:
+    ```
+    cf service-key todo-db for-local
+    ```
 
-  ```
-  {
-    "services": {
-      "cloudantNoSQLDB": [
-        {
-          "credentials": {
-            "url":"URL-FROM-THE-SERVICE-KEY-ABOVE"
-          },
-          "label": "cloudantNoSQLDB",
-          "plan": "Lite",
-          "name": "todo-db"
-        }
-      ]
+  1. Create a file name `vcap-local.json` with the following content:
+
+    ```
+    {
+      "services": {
+        "cloudantNoSQLDB": [
+          {
+            "credentials": {
+              "url":"<URL-FROM-THE-SERVICE-KEY-ABOVE>"
+            },
+            "label": "cloudantNoSQLDB",
+            "plan": "Lite",
+            "name": "todo-db"
+          }
+        ]
+      }
     }
-  }
-  ```
+    ```
+
+    Replace the url with the value retrieved from the service key before.
+
+  ### To use Compose for MongoDB as database
+
+  1. Create an instance of Compose for MongoDB to store the todos
+
+    ```
+    cf create-service compose-for-mongodb Standard todo-db
+    ```
+
+  1. Create a set of credentials for this service
+
+    ```
+    cf create-service-key todo-db for-local
+    ```
+
+  1. View the credentials and take note of the `uri` and `ca_certificate_base64` values
+
+    ```
+    cf service-key todo-db for-local
+    ```
+
+  1. Create a file name `vcap-local.json` with the following content:
+
+    ```
+    {
+      "services": {
+        "compose-for-mongodb": [
+          {
+            "credentials": {
+              "ca_certificate_base64": "<CERTIFICATE>",
+              "uri": "<URI>"
+            },
+            "label": "compose-for-mongodb",
+            "plan": "Standard",
+            "name": "todo-db"
+          }
+        ]
+      }
+    }
+    ```
+
+    Replace the placeholders with the values retrieved from the service key before.
 
 1. Get the application dependencies
 

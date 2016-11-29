@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var Cloudant = require('cloudant');
+const Cloudant = require('cloudant');
 
 function DB(credentials) {
   const DB_NAME = 'todos';
@@ -89,13 +89,15 @@ function DB(credentials) {
         if (err) {
           reject(err);
         } else {
-          resolve({
+          const newItem = {
             id: savedItem.id,
             _rev: savedItem. rev,
             title: item.title,
             completed: item.completed,
             order: item.order
-          });
+          };
+          console.log('created');
+          resolve(newItem);
         }
       });
     });
@@ -110,6 +112,7 @@ function DB(credentials) {
         } else {
           item.id = item._id;
           delete item._id;
+          console.log('read', item);
           resolve(item);
         }
       });
@@ -128,6 +131,7 @@ function DB(credentials) {
           newValue.id = newValue._id;
           newValue._rev = updatedItem._rev;
           delete newValue._id;
+          console.log('updated', newValue);
           resolve(newValue);
         }
       });
@@ -142,6 +146,7 @@ function DB(credentials) {
           if (err) {
             reject(err);
           } else {
+            console.log('deleted', item);
             resolve(item);
           }
         });
