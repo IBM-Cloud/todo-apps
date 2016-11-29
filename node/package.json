@@ -1,43 +1,35 @@
 {
-    "name":                 "bluemix-todo-apps-node",
-    "main":                 "./lib/server",
-    "description":          "node server for TodoMVC using CouchDB or Mongo for storage",
-    "version":              "0.1.1",
-    "private":              false,
-    "engines": {
-        "node": "0.12.*"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/IBM-Bluemix/todo-apps.git"
-    },
-    "dependencies": {
-        "cfenv":           "1.0.x",
-        "express":          "3.4.x",
-        "nano":             "4.7.x",
-        "nopt":             "2.2.x",
-        "ports":            "1.1.x",
-        "q":                "1.0.x",
-        "underscore":       "1.6.x",
-        "monk":             "0.8.x",
-        "cf-deployment-tracker-client": "*"
-    },
-    "devDependencies": {
-        "coffee-script":    "1.7.x",
-        "mocha":            "1.17.x",
-        "expect.js":        "0.3.x"
-    },
-    "author": [
-        {
-            "name": "James Thomas",
-            "email": "thomas6@uk.ibm.com"
-        }
-    ],
-    "contributors": [
-        {
-            "name": "Jake Peyser",
-            "email": "jepeyser@us.ibm.com"
-        }
-    ],
-    "license": "Apache License"
+  "name": "bluemix-todo-apps-node",
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha test/*.js",
+    "coverage": "istanbul cover _mocha test/*.js --report html -- -R spec --timeout 300000"
+  },
+  "description": "node server for TodoMVC using Cloudant, CouchDB or Mongo for storage",
+  "version": "1.0.0",
+  "private": false,
+  "engines": {
+    "node": ">6.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IBM-Bluemix/todo-apps.git"
+  },
+  "dependencies": {
+    "body-parser": "1.15.2",
+    "cf-deployment-tracker-client": "*",
+    "cfenv": "1.0.3",
+    "cloudant": "1.6.2",
+    "express": "4.14.0",
+    "mongodb": "2.2.12"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "istanbul": "0.4.5",
+    "mocha": "3.2.0",
+    "nock": "9.0.2",
+    "supertest": "2.0.1"
+  },
+  "author": "IBM",
+  "license": "Apache-2.0"
 }

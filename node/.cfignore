@@ -1,4 +1,4 @@
 node_modules
-tmp
-
-lib-src
+coverage
+vcap-local.json
+test
