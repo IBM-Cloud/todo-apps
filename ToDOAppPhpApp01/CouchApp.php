@@ -41,14 +41,14 @@ final class CouchApp {
 			$vcap = json_decode($vcapStr, true);
 			foreach ($vcap as $serviceTypes) {
 				foreach ($serviceTypes as $service) {
-					if($service['name'] == 'todo-couch-db') {
+					if($service['name'] == 'todo-db') {
 						$credentials = $service['credentials'];
 						$username = $credentials['username'];
 						$password = $credentials['password'];
 						$parsedUrl = parse_url($credentials['url']);
 						$host = $parsedUrl['host'];
-						$port = isset($parsedUrl['port']) ? 
-						$parsedUrl['port'] : $parsedUrl['scheme'] == 'http' ? 
+						$port = isset($parsedUrl['port']) ?
+						$parsedUrl['port'] : $parsedUrl['scheme'] == 'http' ?
 						'80' : '443';
 						break;
 					}
@@ -71,7 +71,7 @@ final class CouchApp {
 		$clientToDo['title'] = $couchToDo->value->title;
 		$clientToDo['completed'] = $couchToDo->value->completed;
 		$clientToDo['order'] = $couchToDo->key;
-		return $clientToDo; 
+		return $clientToDo;
 	}
 
 	/**

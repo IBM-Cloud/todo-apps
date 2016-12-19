@@ -49,6 +49,17 @@ for general instructions regarding this application.
     cf create-service cloudantNoSQLDB Lite todo-db
     ```
 
+  1. Bind the database to your app for better organization and visibility purposes
+    ```
+    cf bind-service <YOU-APPLICATION-NAME> todo-db
+    ```
+  1. Push the application
+
+    ```
+    cf push
+    ```
+
+  ### OR
   ### To use Compose for MongoDB as database
 
   1. Create an instance of MongoDB to store the todos
@@ -57,11 +68,16 @@ for general instructions regarding this application.
     cf create-service compose-for-mongodb Standard todo-db
     ```
 
-1. Push the application
+  1. Bind the database to your app for better organization and visibility purposes
+    ```
+    cf bind-service <YOU-APPLICATION-NAME> todo-db
+    ```
 
-  ```
-  cf push
-  ```
+  1. Push the application
+
+    ```
+    cf push
+    ```
 
 ## Running the app locally
 
