@@ -32,7 +32,7 @@ You can deploy to Bluemix using the cf command line interface, or the cloudfound
 
     cf push YOUR-APP-NAME -p target/bluemix-todo-app.war -b java_buildpack
 
-In a couple of minutes, your application should be deployed to CHOOSE-A-NAME.mybluemix.net. However the ToDos will be stored in memory, and therefore will be lost if the application restarts, is updated or scaled. To create a cloudant database, bind it to your app and then restage it:
+In a couple of minutes, your application should be deployed to YOUR-APP-NAME.mybluemix.net. However the ToDos will be stored in memory, and therefore will be lost if the application restarts, is updated or scaled. To create a cloudant database, bind it to your app and then restage it:
 
     cf create-service cloudantNoSQLDB Shared todo-couch-db
     cf bind-service YOUR-APP-NAME todo-couch-db
