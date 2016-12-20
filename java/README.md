@@ -32,19 +32,19 @@ You can deploy to Bluemix using the cf command line interface, or the cloudfound
 Deploy using cf cli
 
     cf push YOUR-APP-NAME -p target/bluemix-todo-app.war -b java_buildpack
-    cf create-service cloudantNoSQLDB Shared YOUR-SERVICE-NAME
-    cf bind-service YOUR-APP-NAME YOUR-SERVICE-NAME
-    cf restage YOUR-APP-NAME 
 
-In a couple of minutes, your application should be deployed to CHOOSE-A-NAME.mybluemix.net. However the ToDos will be stored in memory, and therefore will be lost if the application restarts, is updated or scaled. To create a cloudant
+In a couple of minutes, your application should be deployed to CHOOSE-A-NAME.mybluemix.net. However the ToDos will be stored in memory, and therefore will be lost if the application restarts, is updated or scaled. To create a cloudant database, bind it to your app and then restage it:
 
+    cf create-service cloudantNoSQLDB Shared todo-couch-db
+    cf bind-service YOUR-APP-NAME todo-couch-db
+    cf restage YOUR-APP-NAME
 
 
 ###
 Deploy using maven
 We use the [Cloud Foundry Maven Plugin](https://github.com/cloudfoundry/cf-java-client/tree/master/cloudfoundry-maven-plugin)
-to deploy the app to BlueMix.  Before using Maven to deploy the app you just
-need to do a small amount of configuration so Maven knows your BlueMix credentials.  To do this
+to deploy the app to Bluemix.  Before using Maven to deploy the app you just
+need to do a small amount of configuration so Maven knows your Bluemix credentials.  To do this
 open the settings.xml file in ~/.m2.  Within the servers element add the code below
 inserting your credentials.
 
@@ -69,7 +69,7 @@ organization you want to use.
     mvn -P mongo-deploy -Dapp-url=bluemix-todo-java-mongo.mybluemix.net -Dorg=organization
 
 The app-url parameter must be unique, so choose a URL that is meaningful to you.  The org
-parameter represents the organization in BlueMix you want to deploy the app too.  By default
+parameter represents the organization in Bluemix you want to deploy the app too.  By default
 everyone has an organization name that is their user ID.  This command will deploy the app
 to the space called dev by default, you can use the space parameter to deploy it to a different
 space.  For example
