@@ -87,7 +87,7 @@ create_cloudant_service() {
 
 deploy() {
   echo "********************************"
-  echo "* Deploying To BlueMix         *"
+  echo "* Deploying To Bluemix         *"
   echo "********************************"
   read -p "What would you like to call this app?`echo $'\n> '`" name
   cf push $name
