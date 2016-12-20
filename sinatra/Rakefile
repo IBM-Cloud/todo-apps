@@ -17,7 +17,7 @@ require 'fileutils'
 require 'io/console'
 
 # This Rake file does everything your need to deploy this sample app to
-# BlueMix.  This Rake file assumes you have the CloudFoundry command line 
+# Bluemix.  This Rake file assumes you have the CloudFoundry command line 
 # installed and Bundler installed.  There are a number of tasks in this file which make up the 
 # entire deployment process.  There are two main tasks that you may
 # want to run depending on which backend database you want to use:
@@ -34,20 +34,20 @@ require 'io/console'
 #     or mongo-config.ru and mongo-manifest.yml from the deploy directory
 #     to the root directory and rename them to config.ru and manifest.yml
 # 4.) Run 'bundle install' to create Gemfile.lock
-# 5.) Create either the Mongo DB service or Cloudant service in BlueMix
-# 6.) Run 'cf push' to deploy the app to BlueMix and bind the services
+# 5.) Create either the Mongo DB service or Cloudant service in Bluemix
+# 6.) Run 'cf push' to deploy the app to Bluemix and bind the services
 
 # By default we will deploy with Mongo.
 task :default => [:deployMongoToDo]
 
 # Mongo DB deploy
 task :deployMongoToDo => [:clean, :copyDirectory, :mongoConfig, 
-  :bundle, :createMongoService, :deployToBlueMix]
+  :bundle, :createMongoService, :deployToBluemix]
 
 # Cloudant deploy
 task :deployCloudantToDo => [:clean, 
   :copyDirectory, :cloudantConfig, :bundle, :createCloudantService, 
-  :deployToBlueMix]
+  :deployToBluemix]
 
 # Copies the frontent files to the public directory
 task :copyDirectory do
@@ -100,14 +100,14 @@ task :bundle do
   system('bundle install')
 end
 
-# Logs you into BlueMix
+# Logs you into Bluemix
 task :cfLogin do
   puts '*****************************************'
-  puts '* Login To BlueMix                      *'
+  puts '* Login To Bluemix                      *'
   puts '*****************************************'
-  STDOUT.puts "BlueMix Username: "
+  STDOUT.puts "Bluemix Username: "
   user = STDIN.gets.chomp
-  STDOUT.puts "BlueMix Password: "
+  STDOUT.puts "Bluemix Password: "
   pwd = STDIN.noecho(&:gets).chomp
   system('cf login -a https://api.ng.bluemix.net -u ' + user + ' -p ' + pwd)
 end
@@ -128,10 +128,10 @@ task :createMongoService do
   system('cf create-service mongodb 100 todo-mongo-db')
 end
 
-# Pushes the app to BlueMix
-task :deployToBlueMix do
+# Pushes the app to Bluemix
+task :deployToBluemix do
   puts '*****************************************'
-  puts '* Pushing app to BlueMix                *'
+  puts '* Pushing app to Bluemix                *'
   puts '*****************************************'
   STDOUT.puts "What would you like to call this app? "
   name = STDIN.gets.chomp

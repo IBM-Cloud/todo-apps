@@ -3,25 +3,25 @@ A backend for the ToDo app written using PHP.
 ToDos can be stored in either a Mongo DB or a Couch DB using Cloudant..
 
 ## Prerequisites
-Before running this app or deploying it to BlueMix you need to have
+Before running this app or deploying it to Bluemix you need to have
 [PHP](http://us1.php.net/downloads.php), and the
 [CloudFoundry Command Line](https://github.com/cloudfoundry/cli) installed.
 
-## Deploying To BlueMix
+## Deploying To Bluemix
 
 The bash script included in the project takes care of everything you need to do
-to deploy to BlueMix, including creating and binding to the services.  Before you
+to deploy to Bluemix, including creating and binding to the services.  Before you
 deploy the app please make sure you have all the prerequisites from the section above
 installed and working.
 
-### Login To BlueMix From The Command Line
-Before deploying to BlueMix you need to make sure you are logged in.  To do this run
+### Login To Bluemix From The Command Line
+Before deploying to Bluemix you need to make sure you are logged in.  To do this run
 
     cf login -a https://api.ng.bluemix.net
 
-### Deploying To BlueMix
+### Deploying To Bluemix
 
-There are two tasks that will deploy this app to BlueMix, one uses a Mongo DB
+There are two tasks that will deploy this app to Bluemix, one uses a Mongo DB
 service and the other uses a Cloudant service.
 
 To deploy the app so it uses Mongo DB run

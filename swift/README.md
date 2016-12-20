@@ -91,7 +91,7 @@ Make sure you are running at least XCode 7.3.
   
   If you are using XCode, you can run the Test Cases as normal in the IDE.
 
-## Deploying to BlueMix
+## Deploying to Bluemix
 
 1. Get an account for [Bluemix](https://new-console.ng.bluemix.net/?direct=classic)
 

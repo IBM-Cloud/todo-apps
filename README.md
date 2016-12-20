@@ -62,23 +62,23 @@ implementation.
 running the samples
 ================================================================================
 
-To run the samples on BlueMix you must have signed up for BlueMix and have 
-installed the Cloud Foundry command line tool.  To sign up for BlueMix head to
+To run the samples on Bluemix you must have signed up for Bluemix and have 
+installed the Cloud Foundry command line tool.  To sign up for Bluemix head to
 [bluemix.net](https://console.ng.bluemix.net/?cm_mmc=Display-GitHubReadMe-_-BluemixSampleApp-Todo-_-Node-Compose-_-BM-DevAd) and register.
 
 You can download the Cloud Foundry command line tool by following the steps in the [README file](https://github.com/cloudfoundry/cli).
 
 After you have installed the Cloud Foundry command line tool you need to point it
-at BlueMix so it knows where to deploy the applications.  You can do this by running
+at Bluemix so it knows where to deploy the applications.  You can do this by running
 
     cf login -a https://api.ng.bluemix.net
 
-This will prompt you to login with your BlueMix user ID and password which is the
+This will prompt you to login with your Bluemix user ID and password which is the
 same as your IBM ID and password.  You should only need to do this once, the command
 line tool will remember this information.
 
 Most of the projects use build technologies that are specific to the runtime the ToDo
-app is written in to deploy the app to BlueMix (Maven, Rake, Paver, etc).  The assumption 
+app is written in to deploy the app to Bluemix (Maven, Rake, Paver, etc).  The assumption 
 is that these are tools developers who are using these runtimes are familiar with.  
 Under the covers they are using the Cloud Foundry command line to deploy the apps.  
 The benefit is that you don't need to remember verbose commands (in most cases) and
