@@ -49,10 +49,6 @@ for general instructions regarding this application.
     cf create-service cloudantNoSQLDB Lite todo-db
     ```
 
-  1. Bind the database to your app for better organization and visibility purposes
-    ```
-    cf bind-service <YOU-APPLICATION-NAME> todo-db
-    ```
   1. Push the application
 
     ```
@@ -66,11 +62,6 @@ for general instructions regarding this application.
 
     ```
     cf create-service compose-for-mongodb Standard todo-db
-    ```
-
-  1. Bind the database to your app for better organization and visibility purposes
-    ```
-    cf bind-service <YOU-APPLICATION-NAME> todo-db
     ```
 
   1. Push the application

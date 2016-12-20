@@ -1,8 +1,6 @@
 applications:
-- path: .
-  memory: 256M
-  instances: 1
-  domain: mybluemix.net
-  name: <ADD-NAME>
-  host: <ADD-HOST>
-  disk_quota: 1024M
+- name:      bluemix-todo-node
+  host:      bluemix-todo-node
+  memory:    128M
+  services:
+  - todo-db
