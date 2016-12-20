@@ -28,8 +28,7 @@ Then open your favorite browser and navigate to http://localhost:8080.
 
 ## Deploying The App To Bluemix
 You can deploy to Bluemix using the cf command line interface, or the cloudfoundry maven plugin.
-###
-Deploy using cf cli
+### Deploy using cf cli
 
     cf push YOUR-APP-NAME -p target/bluemix-todo-app.war -b java_buildpack
 
@@ -40,8 +39,7 @@ In a couple of minutes, your application should be deployed to CHOOSE-A-NAME.myb
     cf restage YOUR-APP-NAME
 
 
-###
-Deploy using maven
+### Deploy using maven
 We use the [Cloud Foundry Maven Plugin](https://github.com/cloudfoundry/cf-java-client/tree/master/cloudfoundry-maven-plugin)
 to deploy the app to Bluemix.  Before using Maven to deploy the app you just
 need to do a small amount of configuration so Maven knows your Bluemix credentials.  To do this
@@ -61,7 +59,7 @@ Now that Maven knows your credentials you can deploy the app.  The app can be
 deployed using either a Mongo DB backend or a backend based on Couch DB such as
 [Cloudant](https://cloudant.com/).
 
-### Deploying The App With Mongo DB Backend
+#### Deploying The App With Mongo DB Backend
 
 To do this you just need to run a Maven command specifying the URL and the
 organization you want to use.
@@ -76,7 +74,7 @@ space.  For example
 
     mvn -P mongo-deploy -Dapp-url=bluemix-todo-java-mongo.mybluemix.net -Dorg=organization -Dspace=myspace
 
-### Deploying The App With Cloudant Backend
+#### Deploying The App With Cloudant Backend
 
 To do this you just need to run a Maven command specifying the URL, organization, Cloudant
 credentials, and Cloudant URL.
