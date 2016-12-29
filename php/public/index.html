@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en" data-framework="backbonejs">
+	<head>
+		<meta charset="utf-8">
+		<title>Bluemix ToDos</title>
+		<link rel="stylesheet" href="bower_components/todomvc-common/base.css">
+		<link rel="icon" href="images/bluemix-icon.png">
+	</head>
+	<body>
+		<a href="https://github.com/IBM-Bluemix/todo-apps" target="_blank">
+    	<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png">
+    </a>
+		<section id="todoapp">
+			<header id="header">
+				<h1>(bluemix) todos</h1>
+				<input id="new-todo" placeholder="Loading..." autofocus>
+			</header>
+			<section id="main">
+				<input id="toggle-all" type="checkbox">
+				<label for="toggle-all">Mark all as complete</label>
+				<ul id="todo-list"></ul>
+			</section>
+			<footer id="footer"></footer>
+		</section>
+		<footer id="info">
+			<p>Double-click to edit a todo</p>
+			<p>Originally written by <a href="https://github.com/addyosmani">Addy Osmani</a></p>
+			<p>Additions of <a href="https://console.ng.bluemix.net/?cm_mmc=Display-SampleAppLink-_-BluemixSampleApp-Todo-_-Node-Compose-_-BM-DevAd">Bluemix</a> functionality made by Bluemix Dev Advocate Team.</p>
+			<p>Originally part of <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+		<script type="text/template" id="item-template">
+			<div class="view">
+				<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
+				<label><%- title %></label>
+				<button class="destroy"></button>
+			</div>
+			<input class="edit" value="<%- title %>">
+		</script>
+		<script type="text/template" id="stats-template">
+			<span id="todo-count"><strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left</span>
+			<ul id="filters">
+				<li>
+					<a class="selected" href="#/">All</a>
+				</li>
+				<li>
+					<a href="#/active">Active</a>
+				</li>
+				<li>
+					<a href="#/completed">Completed</a>
+				</li>
+			</ul>
+			<% if (completed) { %>
+			<button id="clear-completed">Clear completed (<%= completed %>)</button>
+			<% } %>
+		</script>
+		<script src="bower_components/todomvc-common/base.js"></script>
+		<script src="//code.jquery.com/jquery-2.0.0.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.1/backbone-min.js"></script>
+		<script src="js/models/todo.js"></script>
+		<script src="js/collections/todos.js"></script>
+		<script src="js/views/todo-view.js"></script>
+		<script src="js/views/app-view.js"></script>
+		<script src="js/routers/router.js"></script>
+		<script src="js/app.js"></script>
+	</body>
+</html>
