@@ -3,4 +3,4 @@ applications:
   host:      bluemix-todo-node
   memory:    128M
   services:
-  - todo-db
+  - todo-db 

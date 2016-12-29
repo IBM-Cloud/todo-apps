@@ -1,6 +1,6 @@
 <?php
 /*
- * Copyright IBM Corp. 2014
+ * Copyright IBM Corp. 2016
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,23 +32,24 @@ final class CouchApp {
     }
 
     private function __construct() {
-    	$host = '127.0.0.1';
-		$port = '5984';
-		$username = 'admin';
-		#If running locally enter your own password
+		#If running locally enter your own host, port, username and password
+    $host = '';
+		$port = '';
+		$username = '';
 		$password = '';
+
 		if($vcapStr = getenv('VCAP_SERVICES')) {
 			$vcap = json_decode($vcapStr, true);
 			foreach ($vcap as $serviceTypes) {
 				foreach ($serviceTypes as $service) {
-					if($service['name'] == 'todo-couch-db') {
+					if($service['name'] == 'PHP-todo-db') {
 						$credentials = $service['credentials'];
 						$username = $credentials['username'];
 						$password = $credentials['password'];
 						$parsedUrl = parse_url($credentials['url']);
 						$host = $parsedUrl['host'];
-						$port = isset($parsedUrl['port']) ? 
-						$parsedUrl['port'] : $parsedUrl['scheme'] == 'http' ? 
+						$port = isset($parsedUrl['port']) ?
+						$parsedUrl['port'] : $parsedUrl['scheme'] == 'http' ?
 						'80' : '443';
 						break;
 					}
@@ -71,7 +72,7 @@ final class CouchApp {
 		$clientToDo['title'] = $couchToDo->value->title;
 		$clientToDo['completed'] = $couchToDo->value->completed;
 		$clientToDo['order'] = $couchToDo->key;
-		return $clientToDo; 
+		return $clientToDo;
 	}
 
 	/**
