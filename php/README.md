@@ -4,7 +4,10 @@ ToDos can be stored in Couch DB using Cloudant..
 
 ## Prerequisites
 Before running this app or deploying it to Bluemix you need to have
-[CloudFoundry Command Line](https://github.com/cloudfoundry/cli) installed in order to push your app to Bluemix.
+
+[PHP](http://us1.php.net/downloads.php), and the
+[CloudFoundry Command Line](https://github.com/cloudfoundry/cli) installed.
+
 
 ## How it Works
 
@@ -12,9 +15,6 @@ Before running this app or deploying it to Bluemix you need to have
 
 1. Mark items as complete by clicking the checkmark to the left of the corresponding item.
 
-1. Delete items by clicking the 'X' to the right of the corresponding item that appears on hover.
-
-1. Edit existing todo items by double-clicking on the corresponding item.
 
 ## Running the app on Bluemix
 
@@ -41,7 +41,7 @@ Before running this app or deploying it to Bluemix you need to have
 
   The host you use will determinate your application url initially, e.g. `<host>.mybluemix.net`.
 
-  ### To use Cloudant as database
+  ### To use Cloudant as database to store the todos
 
   1. Create an instance of Cloudant to store the todos
 
@@ -54,6 +54,9 @@ Before running this app or deploying it to Bluemix you need to have
     ```
     cf push
     ```
+
+    Done.. Go to your bluemix staging domain created and see your app running on Bluemix. 
+
 
 ## Running the app locally
   1. Install dependencies

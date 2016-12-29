@@ -69,14 +69,14 @@ def create_cloudant_service():
 @task
 def cf_login():
 	print '************************************'
-	print '* Logging Into BlueMix             *'
+	print '* Logging Into Bluemix             *'
 	print '************************************'
 	call(["cf", "login", "-a", "https://api.ng.bluemix.net"])
 
 @task
 def deploy_to_bluemix():
 	print '************************************'
-	print '* Pushing App To BlueMix           *'
+	print '* Pushing App To Bluemix           *'
 	print '************************************'
 	name = raw_input("What would you like to call this app?\n")
 	call(["cf", "push", name])
