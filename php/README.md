@@ -55,7 +55,7 @@ Before running this app or deploying it to Bluemix you need to have
     cf push
     ```
 
-    Done.. Go to your bluemix staging domain created and see your app running on Bluemix. 
+    Done.. Go to your bluemix staging domain created and see your app running on Bluemix.
 
 
 ## Running the app locally
@@ -91,13 +91,11 @@ Before running this app or deploying it to Bluemix you need to have
 
 
 ### Additional Information
+This app currently uses the PHP buildpack from [CloudFoundry](https://github.com/dmikusa-pivotal/cf-php-build-pack).
 
-    This app currently uses the PHP buildpack from [CloudFoundry](https://github.com/dmikusa-pivotal/cf-php-build-pack).
-    By default it is run unsing an Apache server however you can also use NGINX.  To do this open the
-    options.json file in the .bp-config directory and change the WEB_SERVER property from httpd to nginx.
+By default it is run unsing an Apache server however you can also use NGINX.  To do this open the options.json file in the .bp-config directory and change the WEB_SERVER property from httpd to nginx.
 
-    You may try other PHP buildpacks but the app has only been tested using the CloudFoundry buildpack
-    so it may not work.
+You may try other PHP buildpacks but the app has only been tested using the CloudFoundry buildpack so it may not work.
 
 ### Troubleshooting
 
