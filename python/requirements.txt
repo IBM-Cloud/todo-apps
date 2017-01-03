@@ -1,5 +1,5 @@
 #
-# Copyright IBM Corp. 2014
+# Copyright IBM Corp. 2016
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,6 +14,5 @@
 # limitations under the License.
 #
 flask==0.10.1
-pymongo==2.6.3
 apscheduler==2.1.2
-couchdb==0.9
+couchdb==1.1
