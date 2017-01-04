@@ -39,19 +39,17 @@ for general instructions regarding this application.
 
   The host you use will determinate your application url initially, e.g. `<host>.mybluemix.net`.
 
-  ### To use Cloudant as database
+1. Create an instance of Cloudant to store the todos
 
-  1. Create an instance of Cloudant to store the todos
+  ```
+  cf create-service cloudantNoSQLDB Lite todo-db
+  ```
 
-    ```
-    cf create-service cloudantNoSQLDB Lite todo-db
-    ```
+1. Push the application
 
-  1. Push the application
-
-    ```
-    cf push
-    ```
+  ```
+  cf push
+  ```
 
 
 ### Troubleshooting
