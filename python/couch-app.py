@@ -67,10 +67,10 @@ def index():
     return app.send_static_file('index.html')
 
 # Serve up static resources, JavaScript, HTML, CSS
-#@app.route('/<path:path>')
-#def js_proxy(path):
+@app.route('/<path:path>')
+def js_proxy(path):
     # send_static_file will guess the correct MIME type
-#    return app.send_static_file(os.path.join(path))
+    return app.send_static_file(os.path.join(path))
 
 #Helper function to preprocess Cloudant ToDos to what the client expects
 def to_todo_obj(todo):
