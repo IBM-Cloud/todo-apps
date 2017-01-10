@@ -35,6 +35,11 @@ for general instructions regarding this application.
   cd python
   ```
 
+1. Copy the frontend code into the Python app directory:
+  ```
+  cp -r ../frontend/* static/
+  ```
+
 1. Edit the `manifest.yml` file and change the application `host` to something unique.
 
   The host you use will determinate your application url initially, e.g. `<host>.mybluemix.net`.
