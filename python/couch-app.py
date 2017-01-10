@@ -1,5 +1,5 @@
 #
-# Copyright IBM Corp. 2014
+# Copyright IBM Corp. 2014, 2016
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ import couchdb
 
 app = Flask(__name__, static_url_path='/static')
 
-# If you want to run this locally using a local Couch DB be sure to enter 
+# If you want to run this locally using a local Couch DB be sure to enter
 # your username and password.
 # The other option is to run locally and point to your Cloudant account,
 # in this case just change the url, username, and password variables
@@ -32,7 +32,7 @@ url = 'http://admin@127.0.0.1:5984/'
 if os.environ.has_key('VCAP_SERVICES'):
     vcap_json = json.loads(os.environ['VCAP_SERVICES'])
     for key, value in vcap_json.iteritems():
-        couch_services = filter(lambda s: s['name'] == 'todo-couch-db', value)
+        couch_services = filter(lambda s: s['name'] == 'todo-db', value)
         if len(couch_services) != 0:
             couch_service = couch_services[0]
             url = couch_service['credentials']['url']

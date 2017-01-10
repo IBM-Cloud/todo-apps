@@ -1,53 +1,74 @@
-## About
-A backend for the ToDo app written in Python.  ToDos can be stored in 
-either a Mongo DB or Couch DB using Cloudant.
+# bluemix-todo-apps - Python Overview
 
-## Prerequisites
-Before running this app or deploying it to Bluemix you need to have [
-Python](https://www.python.org/), [PIP](http://www.pip-installer.org/), [Paver](http://paver.github.io/paver/), 
-and the [CloudFoundry Command Line](https://github.com/cloudfoundry/cli) 
-installed.  If you are a Python developer you probably already have most of these installed.
+TodoMVC using Cloudant service running on Bluemix.
 
-## Deploying To Bluemix
+Refer to the [README.md](../README.md) file in the parent directory
+for general instructions regarding this application.
 
-The Paver file takes care of everything you need to do to deploy to Bluemix, including 
-creating and binding to the services.  Before you deploy the app please make sure you 
-have all the prerequisites from the section above installed and working, they are used by 
-the Paver tasks.
+## How it Works
 
-### Login To Bluemix From The Command Line
+1. Add items to the todo list by typing into the box and pressing `Enter`
 
-The Paver file contains a task that will do this for you, just run
+1. Mark items as complete by clicking the checkmark to the left of the corresponding item.
 
-    $ paver cf_login
+1. Delete items by clicking the 'X' to the right of the corresponding item that appears on hover.
 
-You will be prompted to enter your Bluemix user name and password.
+1. Edit existing todo items by double-clicking on the corresponding item.
 
-You can also do this by using the Cloud Foundry command line tool directly.
+## Running the app on Bluemix
 
-    $ cf login -a https://api.ng.bluemix.net
+1. Create a Bluemix Account
 
-### Deploying To Bluemix
+    [Sign up][bluemix_signup_url] for Bluemix, or use an existing account.
 
-There are two tasks that will deploy this app to Bluemix, one uses a Mongo DB service 
-and the other uses a Cloudant service.
+1. Download and install the [Cloud-foundry CLI][cloud_foundry_url] tool
 
-To deploy the app so it uses Mongo DB run
+1. Clone the app to your local environment from your terminal using the following command
 
-    $ paver deploy_mongo_todo
+  ```
+  git clone https://github.com/IBM-Bluemix/todo-apps.git
+  ```
 
-This tasks will prompt you for a name to use for your application.  The name must be unique, if it is
-not unique the deploy will fail.  If it does fail run the task again and enter a different name.
+1. `cd` into the `python` folder of this newly created directory
 
-To deploy the app so it uses Cloudant run
+  ```
+  cd python
+  ```
 
-    $ paver deploy_cloudant_todo
+1. Copy the frontend code into the Python app directory:
+  ```
+  cp -r ../frontend/* static/
+  ```
+
+1. Edit the `manifest.yml` file and change the application `host` to something unique.
+
+  The host you use will determinate your application url initially, e.g. `<host>.mybluemix.net`.
+
+1. Create an instance of Cloudant to store the todos
+
+  ```
+  cf create-service cloudantNoSQLDB Lite todo-db
+  ```
+
+1. Push the application
+
+  ```
+  cf push
+  ```
 
 
-### Additional Information
+### Troubleshooting
 
-This app has been tested using the Python buildpack [here](https://github.com/joshuamckenty/heroku-buildpack-python).
-There are other Python buildpacks that you may use but this app has not been tested with them
-so use them at your own risk.  This buildpack requires you have a file called requirements.txt in
-the root of your project listing all the dependencies that need to be installed.  See the requiremnts.txt
-file in the root of this project for an example.
+To troubleshoot your Bluemix app the main useful source of information is the logs. To see them, run:
+
+  ```
+  cf logs <application-name> --recent
+  ```
+
+### License
+
+[Apache License, Version 2.0](../LICENSE)
+
+
+[cloud_foundry_url]: https://github.com/cloudfoundry/cli
+[bluemix_signup_url]: https://console.ng.bluemix.net/?cm_mmc=Display-GitHubReadMe-_-BluemixSampleApp-Todo-_-Python-_-BM-DevAd
