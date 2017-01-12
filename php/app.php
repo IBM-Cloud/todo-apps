@@ -42,7 +42,7 @@ final class CouchApp {
 			$vcap = json_decode($vcapStr, true);
 			foreach ($vcap as $serviceTypes) {
 				foreach ($serviceTypes as $service) {
-					if($service['name'] == 'PHP-todo-db') {
+					if($service['name'] == 'todo-db-php') {
 						$credentials = $service['credentials'];
 						$username = $credentials['username'];
 						$password = $credentials['password'];
