@@ -18,18 +18,11 @@ require 'rubygems'
 require 'sinatra'
 require 'couchrest'
 require 'json'
-require 'rufus-scheduler'
 
 # Helper function to construct the proper URL 
 # to the Couch DB.
 # URL should be http(s)://username:password@user.cloudant.com/bluemix-todo
-def get_couch_db(creds) 
-  url = creds['url']
-  if !url.end_with?('/')
-    url = url + '/'
-  end
-  url = url + 'bluemix-todo'
-
+def get_couch_db(url)
   puts 'Using URL: ' + url
   #This will create the DB if it does not exist, however it will fail if you do not have permissions
   CouchRest.database!(url)
@@ -52,30 +45,8 @@ def create_view(db)
   end
 end
 
-creds = nil
-if ENV['VCAP_SERVICES']
-  svcs = JSON.parse ENV['VCAP_SERVICES']  
-  cloudant = svcs.detect { |k,v| k =~ /^cloudantNoSQLDB/ }.last.first
-  creds = cloudant['credentials']
-end
-
-db = get_couch_db(creds)
+db = get_couch_db(ENV['CLOUDANT_URI'] || ENV['HTTP_URI'])
 create_view(db)
-
-#Schedule a task to run every 5 seconds to clean up the ToDos
-scheduler = Rufus::Scheduler.new
-scheduler.every '30s' do
-  rows = db.view('todos/allTodos')['rows']
-  if rows.length > 0
-    if rows[0]['value'] > 20
-      params = {
-        :reduce => false 
-      }
-      id = db.view('todos/allTodos', params)['rows'][0]['id']
-      db.delete_doc(db.get(id))
-    end
-  end
-end
 
 #When a GET is issued to the root redirect to index.html
 get '/' do
@@ -116,6 +87,14 @@ put '/api/todos/:id' do
   doc['_id'] = params[:id]
   db.save_doc(doc)
   tdJson.to_json
+end
+
+get '/jobid' do
+  ENV['CNTM_JOB_UUID']
+end
+
+get '/instanceid' do
+  ENV['CNTM_INSTANCE_UUID']
 end
 
 # Translate the Cloudant ToDo JSON into JSON the client is expecting
