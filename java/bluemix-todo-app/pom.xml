@@ -68,6 +68,12 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-jersey2-jaxrs</artifactId>
+        <version>${swagger.version}</version>
+      </dependency> 
+      
+      <dependency>
         <groupId>org.glassfish.jersey</groupId>
         <artifactId>jersey-bom</artifactId>
         <version>${jersey.version}</version>
@@ -121,6 +127,10 @@
   <!-- D E P E N D E N C I E S -->
   <!-- ====================================================================== -->
   <dependencies>
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-jersey2-jaxrs</artifactId>
+    </dependency> 
     <dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-servlet-core</artifactId>
@@ -305,6 +315,7 @@
   <!-- P R O P E R T I E S -->
   <!-- ====================================================================== -->
   <properties>
+    <swagger.version>1.5.21</swagger.version>
     <jersey.version>2.24</jersey.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <powermock.version>1.6.6</powermock.version>

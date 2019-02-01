@@ -18,6 +18,7 @@
 .settings/
 target/
 *.class
+.vscode
 
 # Package Files #
 *.jar

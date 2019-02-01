@@ -28,6 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
+import io.swagger.annotations.Api;
 import net.bluemix.todo.model.ToDo;
 import net.bluemix.todo.store.ToDoStore;
 import net.bluemix.todo.store.ToDoStoreException;
@@ -37,6 +38,7 @@ import net.bluemix.todo.store.ToDoStoreFactory;
  * REST API for performing basic CRUD operations on TODOs.
  */
 @Path("todos")
+@Api
 public class ToDoAPI {
 
   private ToDoStore store;
