@@ -26,6 +26,11 @@ following Maven command in the root of the project.
 
 Then open your favorite browser and navigate to http://localhost:8080.
 
+## Swagger doc
+You can access the swaggerdoc of the APIs at http://localhost:8080/api/swagger.json or http://localhost:8080/api/swagger.yaml
+
+To use the swagger doc for swagger-codegen, change the `host` `your_host:your_port` and the `schemes` to point to your server
+
 ## Deploying The App To Bluemix
 You can deploy to Bluemix using the cf command line interface, or the cloudfoundry maven plugin.
 ### Deploy using cf cli
