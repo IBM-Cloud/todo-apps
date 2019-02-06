@@ -24,3 +24,5 @@ target/
 *.jar
 *.war
 *.ear
+
+.DS_Store
