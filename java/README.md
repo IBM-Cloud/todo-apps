@@ -199,20 +199,20 @@ To deploy this application to IKS using docker, follow below steps:
     
         For Example: 
         Under Addresses:
-             InternalIP: 10.76.141.207
-             ExternalIP: 184.172.233.230
-             Hostname: 10.76.141.207
-             Notedown, `ExternalIP` i.e, `184.172.233.230`
+            InternalIP: 10.76.141.207
+            ExternalIP: 184.172.233.230
+            Hostname: 10.76.141.207
+            Notedown, `ExternalIP` i.e, `184.172.233.230`
     
    b. For Node port, go to services --> Internal endpoints of "webserver", use second port number 
         
         For Example:
         Under services -->  <YOUR_DEPLOYMENT-NAME>
-                <YOUR_DEPLOYMENT-NAME>:8080 TCP
-                <YOUR_DEPLOYMENT-NAME>:30154 TCP
-                Notedown, second IP i.e, 30154
+            <YOUR_DEPLOYMENT-NAME>:8080 TCP
+            <YOUR_DEPLOYMENT-NAME>:30154 TCP
+            Notedown, second IP i.e, 30154
     
-   c. Finally, access application using `184.172.233.230:30154` i.e, `<Node_External_IP>`:`<Node_Port>`
+   c. Finally, access application using `184.172.233.230:30154/bluemix-todo-app/` i.e, `<Node_External_IP>`:`<Node_Port>/bluemix-todo-app/`
     
     
 
