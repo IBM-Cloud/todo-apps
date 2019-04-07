@@ -1,6 +1,6 @@
 ## About
 A backend for the ToDo app written written in Java.  ToDos can be stored in
-either a Mongo DB or Couch DB using Cloudant.  
+either a Mongo DB or Couch DB using Cloudant. If you do not provide Cloudant or Couch, the app will run but the items are all in memory.
 
 
 ## Prerequisites
@@ -26,9 +26,10 @@ following Maven command in the root of the project.
 
 Then open your favorite browser and navigate to http://localhost:8080.
 
-## Deploying The App To Bluemix
-You can deploy to Bluemix using the cf command line interface, or the cloudfoundry maven plugin.
-### Deploy using cf cli
+
+## Deploying The App To IBM Cloud
+You can deploy the aoo too IBM Cloud as a Cloudfoundry app onn regions that Cf is available. You do this using the cf command line interface, or the cloudfoundry maven plugin.
+### Deploy to CloudFoundry using cf cli
 
     cf push YOUR-APP-NAME -p target/bluemix-todo-app.war -b java_buildpack
 
@@ -86,6 +87,125 @@ by default this command will use the space called dev.  You can specify a differ
 you would like using the space parameter.
 
     $ mvn -P cloudant-deploy -Dapp-url=bluemix-todo-java-cloudant.mybluemix.net -Dorg=organization -Dspace=myspace
+
+### Deploying Application to IBM Kubernetes Service (IKS) 
+To deploy this application to IKS using docker, follow below steps:
+Note: to run this app locally on kubernetes, you can use something like Dockerdesktop and minikube. The instructions are not covered here.
+
+#### Getting Started and Configuration
+1. Create a Kubernetes Cluster on IBM Cloud
+
+    a). First let's create an account on IBM Cloud (For Free) : https://www.ibm.com/cloud/
+
+    b). After login to your IBM Cloud account, click on the `Catalog` on top menu bar, select `Containers` from the left navigation menu and click on the Kubernetes Service and click on `create`.
+    
+    c). In the Create a Kubernates Cluster page, set the `Cluster type` as `Free`, enter your `Cluster Name`,  and select the location from the dropdown list (Or leave it for default, i used `Dallas`), then click on `create cluster`. Your will see your Kubernetes Cluster is now in `Deploying` status. When the `deployment` is done, you can see your Kubernetes cluster status is updated as `Deployed`(It takes 8-15 minutes).
+
+2. Run `Kubernetes CLI`
+
+    a). Download and install a few `CLI tools` and the `IBM Kubernetes Service` plug-in.
+    
+    `curl -sL https://ibm.biz/idt-installer | bash`
+     
+    b). TO gain access to your `cluster`, `Log in` to your `IBM Cloud` account.
+     
+    `ibmcloud login -a https://api.ng.bluemix.net`
+            
+      If you have a `federated ID`, use ibmcloud login `--sso` to log in to the IBM Cloud CLI
+            
+    c). Target the IBM Cloud Container Service `region` in which you want to work.
+
+    `ibmcloud cs region-set us-south`
+
+    d). Get the command to set the environment variable and download the Kubernetes configuration files.
+    
+    `ibmcloud cs cluster-config <your Bluemix/IBM cloud Kubernetes cluster name>`
+
+    For example: `ibmcloud cs cluster-config mycluster1`
+
+    e). Set the `KUBECONFIG` environment variable. Copy the output from the previous command and paste it in your terminal. The command output should look similar to the following.
+
+    `export KUBECONFIG=/Users/$USER/.bluemix/plugins/container-service/clusters/mycluster1/kube-config-hou02-mycluster1.yml`
+
+    f). Verify that you can connect to your `cluster` by listing your worker nodes.
+
+    `kubectl get nodes`
+       
+3. Now, Assuming that you already build the project using `mvn`, `login` to the docker by using the command:
+
+      `docker login`
+
+4. Change directory to the bluemix-todo-app folder within the Java folder and run the following commands:
+
+      `$ cd java/bluemix-todo-app`
+        
+      `docker build -t <DOCKER-IMAGE-NAME> .`
+        
+   It will create docker image named `<DOCKER-IMAGE-NAME>`. You can check it by command `docker images`.
+   
+##### Run the application locally using docker
+1. To run the application locally using docker, run the following command:
+
+    `docker run -it --rm -p 8088:8080 --name bluemix-todo-app <DOCKER-IMAGE-NAME>`
+    
+    here, docker port 8088 is mapped to the locally port 8080
+    
+2. check for the application at `http://localhost:8088/bluemix-todo-app/`
+
+##### Deploy and run the application using IKS and docker
+1. Login to IBM Cloud using commands :
+    
+    `bx login -a https://api.ng.bluemix.net --sso`
+    
+    `bx cr login`
+    
+    `bx cr namespace-add <NAMESPACE_NAME>`
+    
+    `bx cs region-set us-south`
+    
+2. In order to push the new image to IBM Cloud repository you need to `tag` the local images into an IBM specific format.To do this use the commands:
+
+    `docker images`
+    Notedown these `<DOCKER-IMAGE-ID>`, `<DOCKER-IMAGE-NAME>`, `<DOCKER-IMAGE-TAG>` to use them in next step.
+    
+    `docker tag <DOCKER-IMAGE-ID> registry.ng.bluemix.net/<NAMEPACE_NAME>/<DOCKER-IMAGE-NAME>:<DOCKER-IMAGE-TAG>`  
+    
+    `docker push registry.ng.bluemix.net/<NAMEPACE_NAME>/<DOCKER-IMAGE-NAME>`
+    
+3. Deploy containerized application to the Kubernetes cluster in IBM Cloud using Kubernetes, to do this use the following two kubectl commands:
+
+    `kubectl run <YOUR_DEPLOYMENT-NAME> --image=registry.ng.bluemix.net/<NAMEPACE_NAME>/<DOCKER-IMAGE-NAME>:<DOCKER-IMAGE-TAG> --port=8080`
+    
+    `kubectl expose deployment <YOUR_DEPLOYMENT-NAME> --type=NodePort`
+    
+    You can see the deployed docker container with name `<YOUR_DEPLOYMENT-NAME>` is up and running in IKS dashboard.
+
+4. To access the `bluemix-todo-app` application:
+    
+   a. In the IKS dashboard, For NodeIP, Go to `Nodes`(left-side bar) --> `details` --> `addresses`, notedown `Extenal IP` 
+    
+        For Example: 
+        Under Addresses:
+            InternalIP: 10.76.141.207
+            ExternalIP: 184.172.233.230
+            Hostname: 10.76.141.207
+            Notedown, `ExternalIP` i.e, `184.172.233.230`
+    
+   b. For Node port, go to services --> Internal endpoints of "webserver", use second port number 
+        
+        For Example:
+        Under services -->  <YOUR_DEPLOYMENT-NAME>
+            <YOUR_DEPLOYMENT-NAME>:8080 TCP
+            <YOUR_DEPLOYMENT-NAME>:30154 TCP
+            Notedown, second IP i.e, 30154
+    
+   c. Finally, access application using `184.172.233.230:30154/bluemix-todo-app/` i.e, `<Node_External_IP>`:`<Node_Port>/bluemix-todo-app/`
+    
+## Swagger doc
+You can access the Open API (swagger) doc of the APIs in yaml or json (swagger.json or swagger.yaml) at http://localhost:8080/api/swagger.json or http://`<Node_External_IP>`:`<Node_Port>`/bluemix-todo-app/api/swagger.json or swagger.yaml
+
+To use the swagger doc in another application, change the `host` to `your_host:your_port` and the `schemes`  to `http` or `https` to point to your server
+
 
 ### Additional Information
 
